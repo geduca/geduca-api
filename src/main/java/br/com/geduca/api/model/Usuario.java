@@ -10,34 +10,26 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Classe Pessoa
+ * Classe Usuario
  * 
  * @author gustavoclay
- * 
+ *
  */
 
 @Setter
 @Getter
 @EqualsAndHashCode
 @Entity
-public class Pessoa {
+public class Usuario {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 
-	private String cpf;
+	private String username;
 
-	private String nome;
+	private String email;
 
-	private String telefone;
-
-	private String celular;
-
-	private String endereco;
-
-	private String sexo;
-
-	private String dataNascimento;
+	private String password;
 
 }
