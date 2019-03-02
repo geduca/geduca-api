@@ -1,5 +1,7 @@
 package br.com.geduca.api.model;
 
+import java.time.LocalDate;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,6 +27,8 @@ public class Pessoa {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
+	
+	private Boolean ativo;
 
 	private String cpf;
 
@@ -38,6 +42,6 @@ public class Pessoa {
 
 	private String sexo;
 
-	private String dataNascimento;
+	private LocalDate dataNascimento;
 
 }
