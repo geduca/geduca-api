@@ -1,11 +1,14 @@
 package br.com.geduca.api.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -28,7 +31,6 @@ import lombok.Setter;
 public class Usuario {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_usuario")
 	private Long codigo;
 
@@ -40,4 +42,8 @@ public class Usuario {
 
 	@ManyToOne
 	private Pessoa pessoa;
+
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "rl_usuario_permissao", joinColumns = @JoinColumn(name = "id_usuario"), inverseJoinColumns = @JoinColumn(name = "id_permissao"))
+	private List<Permissao> permissoes;
 }

@@ -9,7 +9,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 
 @EnableWebSecurity
 @Configuration
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
