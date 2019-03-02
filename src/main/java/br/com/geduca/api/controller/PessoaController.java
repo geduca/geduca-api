@@ -5,7 +5,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,7 +24,7 @@ import br.com.geduca.api.repository.PessoaRepository;
 import br.com.geduca.api.service.PessoaService;
 
 @RestController
-@RequestMapping("/pessoas")
+@RequestMapping("/pessoa")
 public class PessoaController {
 
 	@Autowired
@@ -34,8 +34,9 @@ public class PessoaController {
 	private PessoaRepository pessoaRepository;
 
 	@GetMapping
-	public Page<Pessoa> pesquisar(@RequestParam(required = false, defaultValue = "%") String nome, Pageable pageable) {
-		return pessoaRepository.findByNomeContaining(nome, pageable);
+	public Page<Pessoa> pesquisar(@RequestParam(required = false, defaultValue = "%") String nome,
+			@RequestParam int pagina, @RequestParam int max) {
+		return pessoaRepository.findByNomeContaining(nome, PageRequest.of(pagina, max));
 	}
 
 	@PostMapping
