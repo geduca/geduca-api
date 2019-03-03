@@ -1,24 +1,24 @@
 package br.com.geduca.api.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import br.com.geduca.api.model.enums.SexoEnum;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Classe Pessoa
+ * Classe Aluno
  * 
  * @author gustavoclay
  * 
@@ -27,32 +27,29 @@ import lombok.Setter;
 @Setter
 @Getter
 @EqualsAndHashCode
-@Entity(name = "tb_pessoa")
-public class Pessoa {
+@Entity(name = "tb_aluno")
+public class Aluno {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_pessoa")
+	@Column(name = "id_aluno")
 	private Long codigo;
 
-	private Boolean ativo;
+	@OneToOne
+	private Pessoa pessoa;
 
-	private String cpf;
+	private String pai;
 
-	private String nome;
-
-	private String telefone;
-
-	private String celular;
-
-	@Embedded
-	private Endereco endereco;
-
-	@Enumerated
-	private SexoEnum sexo;
+	private String mae;
 
 	@JsonFormat(pattern = "yyyy-MM-dd")
-	@Column(name = "dt_nascimento")
-	private LocalDate dataNascimento;
+	@Column(name = "dt_matricula")
+	private LocalDate dataMatricula;
+
+	@OneToOne
+	private FichaSaude fichaSaude;
+
+	@OneToMany
+	private List<RestricaoAliementar> restricaoAlimentar;
 
 }

@@ -3,22 +3,20 @@ package br.com.geduca.api.model;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import br.com.geduca.api.model.enums.SexoEnum;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Classe Pessoa
+ * Classe Funcionario
  * 
  * @author gustavoclay
  * 
@@ -27,32 +25,27 @@ import lombok.Setter;
 @Setter
 @Getter
 @EqualsAndHashCode
-@Entity(name = "tb_pessoa")
-public class Pessoa {
+@Entity(name = "tb_funcionario")
+public class Funcionario {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_pessoa")
+	@Column(name = "id_funcionario")
 	private Long codigo;
 
-	private Boolean ativo;
+	@OneToOne
+	private Pessoa pessoa;
 
-	private String cpf;
+	private String formacao;
 
-	private String nome;
-
-	private String telefone;
-
-	private String celular;
-
-	@Embedded
-	private Endereco endereco;
-
-	@Enumerated
-	private SexoEnum sexo;
+	private String area;
 
 	@JsonFormat(pattern = "yyyy-MM-dd")
-	@Column(name = "dt_nascimento")
-	private LocalDate dataNascimento;
+	@Column(name = "dt_matricula")
+	private LocalDate dataMatricula;
+
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	@Column(name = "dt_saida")
+	private LocalDate dataSaida;
 
 }
