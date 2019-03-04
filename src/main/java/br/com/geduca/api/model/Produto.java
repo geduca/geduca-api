@@ -1,15 +1,13 @@
 package br.com.geduca.api.model;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -18,7 +16,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Classe Aluno
+ * Classe Produto
  * 
  * @author gustavoclay
  * 
@@ -27,29 +25,30 @@ import lombok.Setter;
 @Setter
 @Getter
 @EqualsAndHashCode
-@Entity(name = "tb_aluno")
-public class Aluno {
+@Entity(name = "tb_produto")
+public class Produto {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_aluno")
+	@Column(name = "id_produto")
 	private Long codigo;
 
-	@OneToOne
-	private Pessoa pessoa;
+	private String nome;
 
-	private String pai;
+	private String descricao;
 
-	private String mae;
+	private Long quantidade;
+
+	private Unidade unidade;
+
+	@Column(name = "quantidade_minima")
+	private Long quantidadeMinima;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "dt_matricula")
-	private LocalDate dataMatricula;
+	@Column(name = "dt_validade")
+	private LocalDate dataValidade;
 
-	@OneToOne
-	private FichaSaude fichaSaude;
-
-	@OneToMany
-	private List<RestricaoAliementar> restricaoAlimentar;
+	@ManyToMany
+	private Fornecedor fornecedor;
 
 }

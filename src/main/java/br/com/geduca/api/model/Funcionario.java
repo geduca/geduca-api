@@ -7,9 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -33,6 +34,7 @@ public class Funcionario {
 	@Column(name = "id_funcionario")
 	private Long codigo;
 
+	@JoinColumn(unique = true)
 	@OneToOne
 	private Pessoa pessoa;
 
@@ -40,11 +42,11 @@ public class Funcionario {
 
 	private String area;
 
-	@JsonFormat(pattern = "yyyy-MM-dd")
+	@Temporal(TemporalType.DATE)
 	@Column(name = "dt_matricula")
 	private LocalDate dataMatricula;
 
-	@JsonFormat(pattern = "yyyy-MM-dd")
+	@Temporal(TemporalType.DATE)
 	@Column(name = "dt_saida")
 	private LocalDate dataSaida;
 
