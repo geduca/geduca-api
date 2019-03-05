@@ -1,54 +1,51 @@
 package br.com.geduca.api.model;
 
-import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
+import br.com.geduca.api.model.enums.TipoReceitaEnum;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Classe Produto
+ * Classe Receita
  * 
  * @author gustavoclay
  * 
  */
 
 @Setter
-@Getter	
+@Getter
 @EqualsAndHashCode
-@Entity(name = "tb_produto")
-public class Produto {
+@Entity(name = "tb_receita")
+public class Receita {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_produto")
+	@Column(name = "id_receita")
 	private Long codigo;
 
 	private String nome;
 
 	private String descricao;
 
-	private Long quantidade;
+	@Column(name = "modo_preparo")
+	private String modoPreparo;
 
-	private Unidade unidade;
-
-	@Column(name = "quantidade_minima")
-	private Long quantidadeMinima;
-
-	@Temporal(TemporalType.DATE)
-	@Column(name = "dt_validade")
-	private LocalDate dataValidade;
+	@Enumerated
+	private TipoReceitaEnum tipoReceita;
 
 	@ManyToMany
-	private Fornecedor fornecedor;
+	private List<ProdutoReceita> produtos;
 
+	@ManyToMany
+	private List<RestricaoAliementar> restricaoAliementar;
 }

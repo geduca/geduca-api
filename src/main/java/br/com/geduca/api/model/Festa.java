@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -16,39 +16,30 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Classe Produto
+ * Classe Festa
  * 
- * @author gustavoclay
+ * @ @author gustavoclay
  * 
  */
-
 @Setter
-@Getter	
+@Getter
 @EqualsAndHashCode
-@Entity(name = "tb_produto")
-public class Produto {
+@Entity(name = "tb_festa")
+public class Festa {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_produto")
+	@Column(name = "id_evento")
 	private Long codigo;
 
 	private String nome;
 
-	private String descricao;
-
-	private Long quantidade;
-
-	private Unidade unidade;
-
-	@Column(name = "quantidade_minima")
-	private Long quantidadeMinima;
+	@ManyToOne
+	private Aluno aluno;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "dt_validade")
-	private LocalDate dataValidade;
+	@Column()
+	private LocalDate data;
 
-	@ManyToMany
-	private Fornecedor fornecedor;
-
+	private Long duracao;
 }
