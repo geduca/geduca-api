@@ -40,7 +40,6 @@ public class RegistroAlimentar {
 
 	private String observacoes;
 
-	@Temporal(TemporalType.DATE)
 	@Column(name = "dt_registro")
 	private LocalDate dataRegistro;
 

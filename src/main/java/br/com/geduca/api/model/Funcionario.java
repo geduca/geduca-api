@@ -42,11 +42,9 @@ public class Funcionario {
 
 	private String area;
 
-	@Temporal(TemporalType.DATE)
 	@Column(name = "dt_matricula")
 	private LocalDate dataMatricula;
 
-	@Temporal(TemporalType.DATE)
 	@Column(name = "dt_saida")
 	private LocalDate dataSaida;
 

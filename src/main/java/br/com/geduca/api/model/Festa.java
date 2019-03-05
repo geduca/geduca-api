@@ -37,9 +37,9 @@ public class Festa {
 	@ManyToOne
 	private Aluno aluno;
 
-	@Temporal(TemporalType.DATE)
-	@Column()
 	private LocalDate data;
 
 	private Long duracao;
+
+	private String observacoes;
 }

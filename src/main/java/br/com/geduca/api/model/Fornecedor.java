@@ -47,7 +47,6 @@ public class Fornecedor {
 
 	private String reponsavel;
 
-	@Temporal(TemporalType.DATE)
 	@Column(name = "dt_matricula")
 	private LocalDate dataMatricula;
 }

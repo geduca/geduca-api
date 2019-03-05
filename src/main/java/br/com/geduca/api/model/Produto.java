@@ -1,6 +1,7 @@
 package br.com.geduca.api.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,8 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -23,7 +22,7 @@ import lombok.Setter;
  */
 
 @Setter
-@Getter	
+@Getter
 @EqualsAndHashCode
 @Entity(name = "tb_produto")
 public class Produto {
@@ -39,16 +38,13 @@ public class Produto {
 
 	private Long quantidade;
 
-	private Unidade unidade;
-
 	@Column(name = "quantidade_minima")
 	private Long quantidadeMinima;
 
-	@Temporal(TemporalType.DATE)
 	@Column(name = "dt_validade")
 	private LocalDate dataValidade;
 
 	@ManyToMany
-	private Fornecedor fornecedor;
+	private List<Fornecedor> fornecedores;
 
 }

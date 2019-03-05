@@ -55,11 +55,9 @@ public class Turma {
 	@ManyToMany
 	private List<Aluno> alunos;
 
-	@Temporal(TemporalType.DATE)
 	@Column(name = "dt_inicio")
 	private LocalDate dataInicio;
 
-	@Temporal(TemporalType.DATE)
 	@Column(name = "dt_fim")
 	private LocalDate dataFim;
 
