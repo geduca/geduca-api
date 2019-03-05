@@ -9,8 +9,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import br.com.geduca.api.model.enums.SexoEnum;
 import lombok.EqualsAndHashCode;
@@ -35,11 +35,11 @@ public class Pessoa {
 	@Column(name = "id_pessoa")
 	private Long codigo;
 
+	private String nome;
+
 	private Boolean ativo;
 
 	private String cpf;
-
-	private String nome;
 
 	private String telefone;
 
@@ -51,7 +51,7 @@ public class Pessoa {
 	@Enumerated
 	private SexoEnum sexo;
 
-	@JsonFormat(pattern = "yyyy-MM-dd")
+	@Temporal(TemporalType.DATE)
 	@Column(name = "dt_nascimento")
 	private LocalDate dataNascimento;
 

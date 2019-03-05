@@ -6,12 +6,14 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import br.com.geduca.api.model.enums.PeriodoEnum;
 import lombok.EqualsAndHashCode;
@@ -38,22 +40,26 @@ public class Turma {
 
 	private String nome;
 
+	private String sala;
+
+	@JoinColumn(unique = true)
 	@OneToOne
 	private Curso curso;
 
 	@Enumerated
 	private PeriodoEnum periodo;
 
-	// TODO: CONTINUAR IMPLEMENTACAO
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany
 	private List<Funcionario> funcionarios;
 
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany
 	private List<Aluno> alunos;
 
+	@Temporal(TemporalType.DATE)
 	@Column(name = "dt_inicio")
 	private LocalDate dataInicio;
 
+	@Temporal(TemporalType.DATE)
 	@Column(name = "dt_fim")
 	private LocalDate dataFim;
 

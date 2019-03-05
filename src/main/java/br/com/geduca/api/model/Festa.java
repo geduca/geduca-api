@@ -1,16 +1,13 @@
 package br.com.geduca.api.model;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -19,38 +16,30 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Classe Aluno
+ * Classe Festa
  * 
- * @author gustavoclay
+ * @ @author gustavoclay
  * 
  */
-
 @Setter
 @Getter
 @EqualsAndHashCode
-@Entity(name = "tb_aluno")
-public class Aluno {
+@Entity(name = "tb_festa")
+public class Festa {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_aluno")
+	@Column(name = "id_evento")
 	private Long codigo;
 
-	@OneToOne
-	private Pessoa pessoa;
+	private String nome;
 
-	private String pai;
-
-	private String mae;
+	@ManyToOne
+	private Aluno aluno;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "dt_matricula")
-	private LocalDate dataMatricula;
+	@Column()
+	private LocalDate data;
 
-	@OneToOne
-	private FichaSaude fichaSaude;
-
-	@OneToMany
-	private List<RestricaoAliementar> restricaoAlimentar;
-
+	private Long duracao;
 }
