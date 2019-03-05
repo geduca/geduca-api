@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import lombok.EqualsAndHashCode;
@@ -22,7 +21,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @EqualsAndHashCode
-@Entity(name = "rl_produto_receita")
+@Entity(name = "tb_produto_receita")
 public class ProdutoReceita {
 
 	@Id

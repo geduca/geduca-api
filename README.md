@@ -12,11 +12,13 @@
 
 Classe que inicia o projeto: `GeducaWebApplication`
 
-Arquivo de configuração do Spring-Boot `application.properties`:
+Arquivo de configuração do Spring-Boot `application.yml`:
 ```
-spring.datasource.url=jdbc:mysql://localhost:3306/db_geduca?createDatabaseIfNotExist=true&useSSL=false
-spring.datasource.username=root
-spring.datasource.password=
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/db_geduca?createDatabaseIfNotExist=true&useSSL=false&useUnicode=yes&characterEncoding=UTF-8&characterSetResults=UTF-8
+    username: root
+    password: null
 ```
 Alterar nome de usuário, senha e porta caso seja necessário
 

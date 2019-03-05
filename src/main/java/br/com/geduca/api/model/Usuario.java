@@ -42,6 +42,6 @@ public class Usuario {
 	private Pessoa pessoa;
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "rl_usuario_permissao", joinColumns = @JoinColumn(name = "id_usuario"), inverseJoinColumns = @JoinColumn(name = "id_permissao"))
+	@JoinTable(name = "tb_usuario_permissao", joinColumns = @JoinColumn(name = "id_usuario"), inverseJoinColumns = @JoinColumn(name = "id_permissao"))
 	private List<Permissao> permissoes;
 }
