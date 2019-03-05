@@ -41,7 +41,6 @@ public class RegistroNutricional {
 
 	private Float imc;
 
-	@Temporal(TemporalType.DATE)
 	@Column(name = "dt_registro")
 	private LocalDate dataRegistro;
 

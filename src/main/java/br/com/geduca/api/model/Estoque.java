@@ -1,22 +1,20 @@
 package br.com.geduca.api.model;
 
-import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.OneToMany;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Classe Presenca
+ * Classe Estoque
  * 
  * @author gustavoclay
  * 
@@ -25,20 +23,15 @@ import lombok.Setter;
 @Setter
 @Getter
 @EqualsAndHashCode
-@Entity(name = "tb_presenca")
-public class Presenca {
+@Entity(name = "tb_estoque")
+public class Estoque {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_presenca")
+	@Column(name = "id_estoque")
 	private Long codigo;
 
-	@ManyToOne
-	private Aluno aluno;
-
-	private Boolean presente;
-
-	@Column(name = "dt_presenca")
-	private LocalDate dataPresenca;
+	@OneToMany
+	private List<ProdutoEstoque> produtos;
 
 }

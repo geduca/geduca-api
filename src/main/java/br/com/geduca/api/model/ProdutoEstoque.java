@@ -8,15 +8,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.OneToOne;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Classe Presenca
+ * Classe ProdutoEstoque
  * 
  * @author gustavoclay
  * 
@@ -25,20 +24,25 @@ import lombok.Setter;
 @Setter
 @Getter
 @EqualsAndHashCode
-@Entity(name = "tb_presenca")
-public class Presenca {
+@Entity(name = "rl_produto_estoque")
+public class ProdutoEstoque {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_presenca")
+	@Column(name = "id_produto_estoque")
 	private Long codigo;
 
 	@ManyToOne
-	private Aluno aluno;
+	private Produto produto;
 
-	private Boolean presente;
+	@ManyToOne
+	private Unidade unidade;
 
-	@Column(name = "dt_presenca")
-	private LocalDate dataPresenca;
+	private Long quantidade;
+
+	@Column(name = "quantidade_minima")
+	private Long quantidadeMinima;
+
+	private LocalDate dataRegistro;
 
 }

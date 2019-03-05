@@ -51,7 +51,6 @@ public class Pessoa {
 	@Enumerated
 	private SexoEnum sexo;
 
-	@Temporal(TemporalType.DATE)
 	@Column(name = "dt_nascimento")
 	private LocalDate dataNascimento;
 
