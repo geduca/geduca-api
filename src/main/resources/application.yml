@@ -19,6 +19,8 @@ spring:
     date-format: yyyy-MM-dd
     deserialization:
       fail-on-ignored-properties: true
+    serialization:
+      fail-on-empty-beans: false
   http:
     encoding:
       charset: UTF-8
