@@ -1,8 +1,12 @@
 package br.com.geduca.api.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import br.com.geduca.api.model.Pessoa;
@@ -14,8 +18,8 @@ public class PessoaService {
 	@Autowired
 	private PessoaRepository pessoaRepository;
 
-	public Pessoa salvar(Pessoa pessoa) {
-		return pessoaRepository.save(pessoa);
+	public void salvar(Pessoa pessoa) {
+		pessoaRepository.save(pessoa);
 	}
 
 	public Pessoa atualizar(Long codigo, Pessoa pessoa) {
@@ -36,5 +40,17 @@ public class PessoaService {
 			throw new EmptyResultDataAccessException(1);
 		}
 		return pessoaSalva;
+	}
+
+	public Page<Pessoa> findByNomeContaining(String nome, int pagina, int max) {
+		return pessoaRepository.findByNomeContaining(nome, PageRequest.of(pagina, max));
+	}
+
+	public Optional<Pessoa> findById(long codigo) {
+		return pessoaRepository.findById(codigo);
+	}
+
+	public void deleteById(Long codigo) {
+		pessoaRepository.deleteById(codigo);
 	}
 }
