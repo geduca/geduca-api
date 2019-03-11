@@ -6,20 +6,24 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.com.geduca.api.model.Pessoa;
 import br.com.geduca.api.repository.PessoaRepository;
 
+/**
+ * @author gustavoclay
+ *
+ */
 @Service
 public class PessoaService {
 
 	@Autowired
 	private PessoaRepository pessoaRepository;
 
-	public void salvar(Pessoa pessoa) {
-		pessoaRepository.save(pessoa);
+	public Pessoa salvar(Pessoa pessoa) {
+		return pessoaRepository.save(pessoa);
 	}
 
 	public Pessoa atualizar(Long codigo, Pessoa pessoa) {
@@ -42,8 +46,8 @@ public class PessoaService {
 		return pessoaSalva;
 	}
 
-	public Page<Pessoa> findByNomeContaining(String nome, int pagina, int max) {
-		return pessoaRepository.findByNomeContaining(nome, PageRequest.of(pagina, max));
+	public Page<Pessoa> findByNomeContaining(String nome, Pageable paginacao) {
+		return pessoaRepository.findByNomeContaining(nome, paginacao);
 	}
 
 	public Optional<Pessoa> findById(long codigo) {

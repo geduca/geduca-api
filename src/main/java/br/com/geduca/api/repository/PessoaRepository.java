@@ -7,6 +7,10 @@ import org.springframework.stereotype.Repository;
 
 import br.com.geduca.api.model.Pessoa;
 
+/**
+ * @author gustavoclay
+ *
+ */
 @Repository
 public interface PessoaRepository extends JpaRepository<Pessoa, Long> {
 
