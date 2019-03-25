@@ -1,4 +1,4 @@
-package exception;
+package exceptionHandler;
 
 import java.util.ArrayList;
 import java.util.Arrays;

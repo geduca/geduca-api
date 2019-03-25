@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,8 +24,13 @@ import br.com.geduca.api.model.Aluno;
 import br.com.geduca.api.repository.AlunoRepository;
 import br.com.geduca.api.service.AlunoService;
 
+/**
+ * @author gustavoclay
+ *
+ */
+@PreAuthorize("hasRole('ROLE')")
 @RestController
-@RequestMapping("/aluno")
+@RequestMapping("/alunos")
 public class AlunoController {
 
 	@Autowired
@@ -47,7 +53,7 @@ public class AlunoController {
 	@GetMapping("/{codigo}")
 	public ResponseEntity<Aluno> buscaPeloCodigo(@PathVariable long codigo) {
 		Aluno aluno = alunoRepository.getOne(codigo);
-		return aluno != null ? ResponseEntity.ok(aluno) : ResponseEntity.notFound().build();
+		return aluno != null ? ResponseEntity.ok(aluno) : ResponseEntity.noContent().build();
 	}
 
 	@DeleteMapping("/{codigo}")
