@@ -47,7 +47,7 @@ public class AlunoController {
 	@GetMapping("/{codigo}")
 	public ResponseEntity<Aluno> buscaPeloCodigo(@PathVariable long codigo) {
 		Aluno aluno = alunoRepository.getOne(codigo);
-		return aluno != null ? ResponseEntity.ok(aluno) : ResponseEntity.notFound().build();
+		return aluno != null ? ResponseEntity.ok(aluno) : ResponseEntity.noContent().build();
 	}
 
 	@DeleteMapping("/{codigo}")

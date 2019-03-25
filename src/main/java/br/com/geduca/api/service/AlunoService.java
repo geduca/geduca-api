@@ -8,13 +8,21 @@ import org.springframework.stereotype.Service;
 import br.com.geduca.api.model.Aluno;
 import br.com.geduca.api.repository.AlunoRepository;
 
+/**
+ * @author gustavoclay
+ *
+ */
 @Service
 public class AlunoService {
 
 	@Autowired
 	private AlunoRepository alunoRepository;
 
+	@Autowired
+	private PessoaService pessoaService;
+
 	public Aluno salvar(Aluno aluno) {
+		pessoaService.salvar(aluno.getPessoa());
 		return alunoRepository.save(aluno);
 	}
 
