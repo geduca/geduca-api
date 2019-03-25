@@ -30,7 +30,7 @@ import event.RecursoCriadoEvent;
  *
  */
 @RestController
-@RequestMapping("/pessoa")
+@RequestMapping("/pessoas")
 public class PessoaController {
 
 	@Autowired

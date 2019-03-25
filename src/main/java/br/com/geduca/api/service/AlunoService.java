@@ -6,6 +6,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import br.com.geduca.api.model.Aluno;
+import br.com.geduca.api.model.Pessoa;
 import br.com.geduca.api.repository.AlunoRepository;
 
 /**
@@ -28,7 +29,10 @@ public class AlunoService {
 
 	public Aluno atualizar(Long codigo, Aluno aluno) {
 		Aluno alunoSalvo = buscaAlunoPeloCodigo(codigo);
+		Pessoa pessoaSalvo = pessoaService.buscarPessoaPeloCodigo(alunoSalvo.getPessoa().getCodigo());
+		BeanUtils.copyProperties(aluno.getPessoa(), pessoaSalvo, "codigo");
 		BeanUtils.copyProperties(aluno, alunoSalvo, "codigo");
+		pessoaService.salvar(pessoaSalvo);
 		return alunoRepository.save(alunoSalvo);
 	}
 
