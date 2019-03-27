@@ -30,7 +30,7 @@ import event.RecursoCriadoEvent;
  * @author gustavoclay
  *
  */
-@PreAuthorize("hasRole('ROLE')")
+@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 @RestController
 @RequestMapping("/pessoas")
 public class PessoaController {

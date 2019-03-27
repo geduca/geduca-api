@@ -8,14 +8,19 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * Configuração do Spring Security - WebSecurityConfigurerAdapter
  * 
- * A anotação ResourceServerConfigurerAdapter gera um WebSecurityConfigurerAdapter.
- * A Order do WebSecurityConfigurerAdapter gerado pelo ResourceServerConfigurerAdapter é 3.
- * A Order deste WebSecurityConfigurerAdapter deve ser > 3, para que o configure(HttpSecurity http) do
- * ResourceServerConfig tenha precedência sobre o configure(HttpSecurity http) do SecurityConfig.
+ * A anotação ResourceServerConfigurerAdapter gera um
+ * WebSecurityConfigurerAdapter. A Order do WebSecurityConfigurerAdapter gerado
+ * pelo ResourceServerConfigurerAdapter é 3. A Order deste
+ * WebSecurityConfigurerAdapter deve ser > 3, para que o configure(HttpSecurity
+ * http) do ResourceServerConfig tenha precedência sobre o
+ * configure(HttpSecurity http) do SecurityConfig.
  *
  * @author gustavoclay
  *
@@ -26,19 +31,20 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
+	private UserDetailsService userDetailsService;
+
+	@Autowired
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth
-		.inMemoryAuthentication()
-		.withUser("admin")
-		.password("{noop}admin")
-		.roles("ROLE");
+		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
 	}
-	
+
 	@Bean
 	@Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
-	
+	public AuthenticationManager authenticationManagerBean() throws Exception {
+		return super.authenticationManagerBean();
+	}
 
+	private PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 }
