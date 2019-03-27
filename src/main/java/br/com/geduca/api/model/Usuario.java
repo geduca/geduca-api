@@ -11,6 +11,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import org.dom4j.tree.AbstractEntity;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
