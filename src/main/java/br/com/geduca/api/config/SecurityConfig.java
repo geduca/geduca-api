@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 /**
  * Configuração do Spring Security - WebSecurityConfigurerAdapter
+ * 
  * A anotação ResourceServerConfigurerAdapter gera um WebSecurityConfigurerAdapter.
  * A Order do WebSecurityConfigurerAdapter gerado pelo ResourceServerConfigurerAdapter é 3.
  * A Order deste WebSecurityConfigurerAdapter deve ser > 3, para que o configure(HttpSecurity http) do
@@ -38,5 +39,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
+	
 
 }
