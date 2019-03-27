@@ -11,8 +11,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
-import org.dom4j.tree.AbstractEntity;
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -44,6 +42,6 @@ public class Usuario {
 	private Pessoa pessoa;
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "tb_usuario_permissao", joinColumns = @JoinColumn(name = "id_usuario"), inverseJoinColumns = @JoinColumn(name = "id_permissao"))
+	@JoinTable(name = "rl_usuario_permissao", joinColumns = @JoinColumn(name = "id_usuario"), inverseJoinColumns = @JoinColumn(name = "id_permissao"))
 	private List<Permissao> permissoes;
 }
