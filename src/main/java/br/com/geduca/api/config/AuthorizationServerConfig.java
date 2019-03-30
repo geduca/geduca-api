@@ -13,15 +13,15 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 /**
- * Configuração do Spring Security - AuthorizationServerConfigurerAdapter
- * Não necessita estar autenticado para executar requisição em '/teste', mas pra frente configurar healthcheck
- * API REST não criará sessão no servidor, ou seja, não manterá estado de nada.
- * Cross site desabilitado -> javascript injection
+ * Configuração do Spring Security - AuthorizationServerConfigurerAdapter Não
+ * necessita estar autenticado para executar requisição em '/teste', mas pra
+ * frente configurar healthcheck API REST não criará sessão no servidor, ou
+ * seja, não manterá estado de nada. Cross site desabilitado -> javascript
+ * injection
  *
  * @author gustavoclay
  *
  */
-
 @Configuration
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
@@ -31,31 +31,24 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-		clients.inMemory()
-			.withClient("geduca")
-			.secret("{noop}g&duc@")
-			.scopes("read", "write")
-			.authorizedGrantTypes("password", "refresh_token")
-			.accessTokenValiditySeconds(1800)
-			.refreshTokenValiditySeconds(3600*24);
+		clients.inMemory().withClient("geduca").secret("{noop}g&duc@").scopes("read", "write")
+				.authorizedGrantTypes("password", "refresh_token").accessTokenValiditySeconds(1800)
+				.refreshTokenValiditySeconds(3600 * 24);
 	}
-	
+
 	@Override
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-		endpoints
-			.tokenStore(tokenStore())
-			.accessTokenConverter(accessTokenConverter())
-			.reuseRefreshTokens(false)
-			.authenticationManager(authenticationManager);
+		endpoints.tokenStore(tokenStore()).accessTokenConverter(accessTokenConverter()).reuseRefreshTokens(false)
+				.authenticationManager(authenticationManager);
 	}
-	
+
 	@Bean
 	public JwtAccessTokenConverter accessTokenConverter() {
 		JwtAccessTokenConverter accessTokenConverter = new JwtAccessTokenConverter();
 		accessTokenConverter.setSigningKey("{noop}g&duc@*");
 		return accessTokenConverter;
 	}
-	
+
 	@Bean
 	public TokenStore tokenStore() {
 		return new JwtTokenStore(accessTokenConverter());

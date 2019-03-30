@@ -24,7 +24,6 @@ import org.springframework.security.oauth2.provider.expression.OAuth2MethodSecur
  * @author gustavoclay
  *
  */
-
 @Configuration
 @EnableResourceServer
 @EnableGlobalMethodSecurity(prePostEnabled = true)

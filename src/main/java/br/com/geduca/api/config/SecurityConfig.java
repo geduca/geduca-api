@@ -25,7 +25,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * @author gustavoclay
  *
  */
-
 @Configuration
 @EnableWebSecurity
 @Order(4)
