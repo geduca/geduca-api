@@ -35,7 +35,7 @@ geduca:
     /teste/**   
   urls-principais-liberadas: >
     /teste/**
-  origin-pemitida: /**
+  origin-pemitida: '*'
   enable-https: true
   
   

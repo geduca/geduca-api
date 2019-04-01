@@ -1,5 +1,7 @@
 package br.com.geduca.api.config;
 
+import java.util.Arrays;
+
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -56,14 +58,13 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
+		CorsConfiguration configuration = new CorsConfiguration();
+		configuration.setAllowedOrigins(Arrays.asList("*"));
+		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+		configuration.setAllowedHeaders(Arrays.asList("Content-Type, Authorization, Content-Length, X-Requested-With"));
+		configuration.setExposedHeaders(Arrays.asList("x-auth-token"));
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		CorsConfiguration config = new CorsConfiguration().applyPermitDefaultValues();
-		config.setAllowCredentials(true);
-		config.addAllowedOrigin(originPermitida);
-		config.addAllowedMethod("POST, GET, DELETE, PUT, OPTIONS");
-		config.addAllowedHeader("Authorization, Content-Type, Accept, X-Requested-With, charset, ");
-		config.setMaxAge((long) 3600);
-		source.registerCorsConfiguration("/**", config);
+		source.registerCorsConfiguration("/**", configuration);
 		return source;
 	}
 
