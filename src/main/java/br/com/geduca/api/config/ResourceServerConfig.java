@@ -12,6 +12,9 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.expression.OAuth2MethodSecurityExpressionHandler;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 /**
  * Configuração do Spring Security - ResourceServerConfigurerAdapter Não
@@ -35,10 +38,13 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	@Value("#{ @environment['geduca.urls-principais-liberadas'] }")
 	private String[] urlsPrincipaisLiberadas;
 
+	@Value("#{ @environment['geduca.origin-pemitida'] }")
+	private String originPermitida;
+
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers(ArrayUtils.addAll(urlsPrincipaisLiberadas, urlsLiberadas)).permitAll()
-				.anyRequest().authenticated().and().sessionManagement()
+		http.cors().and().authorizeRequests().antMatchers(ArrayUtils.addAll(urlsPrincipaisLiberadas, urlsLiberadas))
+				.permitAll().anyRequest().authenticated().and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().csrf().disable().cors();
 	}
 
@@ -50,6 +56,19 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	@Bean
 	public MethodSecurityExpressionHandler createExpressionHandler() {
 		return new OAuth2MethodSecurityExpressionHandler();
+	}
+
+	@Bean
+	public CorsConfigurationSource corsConfigurationSource() {
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		CorsConfiguration config = new CorsConfiguration().applyPermitDefaultValues();
+		config.setAllowCredentials(true);
+		config.addAllowedOrigin(originPermitida);
+		config.addAllowedMethod("POST, GET, DELETE, PUT, OPTIONS");
+		config.addAllowedHeader("Authorization, Content-Type, Accept, X-Requested-With, charset");
+		config.setMaxAge((long) 3600);
+		source.registerCorsConfiguration("/**", config);
+		return source;
 	}
 
 }
