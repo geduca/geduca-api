@@ -29,13 +29,5 @@ server:
   port: 12333
   servlet:
     context-path: /geduca
-
-geduca:
-  urls-liberadas: >
-    /teste/**   
-  urls-principais-liberadas: >
-    /teste/**
-  origin-pemitida: '*'
-  enable-https: true
   
   
