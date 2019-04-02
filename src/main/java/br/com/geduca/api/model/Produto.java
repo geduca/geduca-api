@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 import lombok.EqualsAndHashCode;
@@ -45,6 +46,7 @@ public class Produto {
 	private LocalDate dataValidade;
 
 	@ManyToMany
+	@JoinTable(name="rl_produto_fornecedor")
 	private List<Fornecedor> fornecedores;
 
 }

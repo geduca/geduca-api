@@ -28,8 +28,8 @@ import br.com.geduca.api.service.AlunoService;
  * @author gustavoclay
  *
  */
-@PreAuthorize("hasRole('ROLE')")
 @RestController
+@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 @RequestMapping("/alunos")
 public class AlunoController {
 

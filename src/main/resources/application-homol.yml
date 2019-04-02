@@ -1,0 +1,18 @@
+spring:
+  profiles:
+    include: common
+  datasource:
+    url: jdbc:mysql://localhost:3306/db_geduca?createDatabaseIfNotExist=true&useSSL=false&useUnicode=yes&characterEncoding=UTF-8&characterSetResults=UTF-8&useTimezone=true&serverTimezone=UTC
+    username: root
+    password: null
+  jpa:
+    database: MYSQL
+    show-sql: true
+    
+geduca:
+  urls-liberadas: >
+    /teste/**   
+  urls-principais-liberadas: >
+    /teste/**
+  origin-pemitida: 'http://localhost:4200/*'
+  enable-https: false

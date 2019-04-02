@@ -21,7 +21,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @EqualsAndHashCode
-@Entity(name = "tb_produto_receita")
+@Entity(name = "rl_produto_receita")
 public class ProdutoReceita {
 
 	@Id

@@ -8,6 +8,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 import br.com.geduca.api.model.enums.TipoReceitaEnum;
@@ -44,8 +45,10 @@ public class Receita {
 	private TipoReceitaEnum tipoReceita;
 
 	@ManyToMany
+	@JoinTable(name="rl_receita_produto")
 	private List<ProdutoReceita> produtos;
 
 	@ManyToMany
+	@JoinTable(name="rl_receita_restricao_alimentar")
 	private List<RestricaoAliementar> restricaoAliementar;
 }

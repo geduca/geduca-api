@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 
 import lombok.EqualsAndHashCode;
@@ -32,6 +33,7 @@ public class Estoque {
 	private Long codigo;
 
 	@OneToMany
+	@JoinTable(name="rl_estoque_produto")
 	private List<ProdutoEstoque> produtos;
 
 }
