@@ -49,6 +49,6 @@ public class Aluno {
 
 	@OneToMany
 	@JoinTable(name="rl_aluno_restricao_alimentar")
-	private List<RestricaoAliementar> restricaoAlimentar;
+	private List<RestricaoAliementar> restricoesAlimentares;
 
 }
