@@ -37,10 +37,6 @@ public class Aluno {
 	@OneToOne
 	private Pessoa pessoa;
 
-	private String pai;
-
-	private String mae;
-
 	@Column(name = "dt_matricula")
 	private LocalDate dataMatricula;
 

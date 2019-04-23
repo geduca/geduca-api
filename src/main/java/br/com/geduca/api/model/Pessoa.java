@@ -32,12 +32,18 @@ public class Pessoa {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_pessoa")
 	private Long codigo;
-
-	private String nome;
-
+	
 	private Boolean ativo;
 
+	private String nome;
+	
+	private String pai;
+
+	private String mae;
+
 	private String cpf;
+	
+	private String email;
 
 	private String telefone;
 
