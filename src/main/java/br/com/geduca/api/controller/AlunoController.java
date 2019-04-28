@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.geduca.api.model.Aluno;
-import br.com.geduca.api.repository.AlunoRepository;
 import br.com.geduca.api.service.AlunoService;
 
 /**
@@ -36,12 +35,9 @@ public class AlunoController {
 	@Autowired
 	private AlunoService alunoService;
 
-	@Autowired
-	private AlunoRepository alunoRepository;
-
 	@GetMapping
 	public Page<Aluno> pesquisar(@RequestParam int pagina, @RequestParam int max) {
-		return alunoRepository.findAll(PageRequest.of(pagina, max));
+		return alunoService.findAll(PageRequest.of(pagina, max));
 	}
 
 	@PostMapping
@@ -52,14 +48,14 @@ public class AlunoController {
 
 	@GetMapping("/{codigo}")
 	public ResponseEntity<Aluno> buscaPeloCodigo(@PathVariable long codigo) {
-		Aluno aluno = alunoRepository.getOne(codigo);
+		Aluno aluno = alunoService.buscaAlunoPeloCodigo(codigo);
 		return aluno != null ? ResponseEntity.ok(aluno) : ResponseEntity.noContent().build();
 	}
 
 	@DeleteMapping("/{codigo}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void remover(@PathVariable Long codigo) {
-		alunoRepository.deleteById(codigo);
+		alunoService.deleteById(codigo);
 	}
 
 	@PutMapping("/{codigo}")

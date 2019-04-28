@@ -60,7 +60,7 @@ public class PessoaController {
 		if (pessoa != null)
 			return ResponseEntity.ok(pessoa);
 		else
-			return ResponseEntity.notFound().build();
+			return ResponseEntity.noContent().build();
 	}
 
 	@DeleteMapping("/{codigo}")
