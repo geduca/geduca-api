@@ -1,13 +1,18 @@
 package br.com.geduca.api.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.com.geduca.api.model.Aluno;
 import br.com.geduca.api.model.Pessoa;
 import br.com.geduca.api.repository.AlunoRepository;
+import br.com.geduca.api.repository.PessoaRepository;
 
 /**
  * @author gustavoclay
@@ -18,6 +23,9 @@ public class AlunoService {
 
 	@Autowired
 	private AlunoRepository alunoRepository;
+
+	@Autowired
+	private PessoaRepository pessoaRepository;
 
 	@Autowired
 	private PessoaService pessoaService;
@@ -43,4 +51,17 @@ public class AlunoService {
 		}
 		return alunoSalvo;
 	}
+
+	public Page<Aluno> findAll(Pageable pageable) {
+		return alunoRepository.findAll(pageable);
+	}
+
+	public Optional<Aluno> findById(long codigo) {
+		return alunoRepository.findById(codigo);
+	}
+
+	public void deleteById(Long codigo) {
+		alunoRepository.deleteById(codigo);
+	}
+
 }
