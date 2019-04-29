@@ -25,7 +25,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @EqualsAndHashCode
-@Entity(name = "rl_movimentacao_estoque")
+@Entity(name = "tb_movimentacao_estoque")
 public class MovimentacaoEstoque {
 
 	@Id

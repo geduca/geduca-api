@@ -32,8 +32,8 @@ public class Estoque {
 	@Column(name = "id_estoque")
 	private Long codigo;
 
-	@OneToMany
-	@JoinTable(name="rl_estoque_produto")
-	private List<ProdutoEstoque> produtos;
+	private String nome;
+	
+	private String descricao;
 
 }
