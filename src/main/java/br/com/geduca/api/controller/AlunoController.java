@@ -1,4 +1,4 @@
-package br.com.geduca.api.controller;
+	package br.com.geduca.api.controller;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -39,17 +39,17 @@ public class AlunoController {
 	public Page<Aluno> pesquisar(@RequestParam int pagina, @RequestParam int max) {
 		return alunoService.findAll(PageRequest.of(pagina, max));
 	}
+	
+	@GetMapping("/{codigo}")
+	public ResponseEntity<Aluno> buscaPeloCodigo(@PathVariable long codigo) {
+		Aluno aluno = alunoService.buscaAlunoPeloCodigo(codigo);
+		return aluno != null ? ResponseEntity.ok(aluno) : ResponseEntity.noContent().build();
+	}
 
 	@PostMapping
 	public ResponseEntity<Aluno> criar(@RequestBody Aluno aluno, HttpServletResponse response) {
 		Aluno alunoSalvo = alunoService.salvar(aluno);
 		return ResponseEntity.status(HttpStatus.CREATED).body(alunoSalvo);
-	}
-
-	@GetMapping("/{codigo}")
-	public ResponseEntity<Aluno> buscaPeloCodigo(@PathVariable long codigo) {
-		Aluno aluno = alunoService.buscaAlunoPeloCodigo(codigo);
-		return aluno != null ? ResponseEntity.ok(aluno) : ResponseEntity.noContent().build();
 	}
 
 	@DeleteMapping("/{codigo}")
