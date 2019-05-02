@@ -45,10 +45,6 @@ public class Receita {
 	private TipoReceitaEnum tipoReceita;
 
 	@ManyToMany
-	@JoinTable(name="rl_receita_produto")
-	private List<ProdutoReceita> produtos;
-
-	@ManyToMany
 	@JoinTable(name="rl_receita_restricao_alimentar")
 	private List<RestricaoAliementar> restricaoAliementar;
 }
