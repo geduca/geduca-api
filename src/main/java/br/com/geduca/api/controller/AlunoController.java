@@ -1,4 +1,4 @@
-	package br.com.geduca.api.controller;
+package br.com.geduca.api.controller;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -41,7 +41,7 @@ public class AlunoController {
 	}
 	
 	@GetMapping("/{codigo}")
-	public ResponseEntity<Aluno> buscaPeloCodigo(@PathVariable long codigo) {
+	public ResponseEntity<Aluno> buscaPeloCodigo(@PathVariable Long codigo) {
 		Aluno aluno = alunoService.buscaAlunoPeloCodigo(codigo);
 		return aluno != null ? ResponseEntity.ok(aluno) : ResponseEntity.noContent().build();
 	}

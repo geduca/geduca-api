@@ -1,5 +1,6 @@
 package br.com.geduca.api.service;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
@@ -12,7 +13,6 @@ import org.springframework.stereotype.Service;
 import br.com.geduca.api.model.Aluno;
 import br.com.geduca.api.model.Pessoa;
 import br.com.geduca.api.repository.AlunoRepository;
-import br.com.geduca.api.repository.PessoaRepository;
 
 /**
  * @author gustavoclay
@@ -25,12 +25,11 @@ public class AlunoService {
 	private AlunoRepository alunoRepository;
 
 	@Autowired
-	private PessoaRepository pessoaRepository;
-
-	@Autowired
 	private PessoaService pessoaService;
 
 	public Aluno salvar(Aluno aluno) {
+		LocalDate data = LocalDate.now();
+		aluno.setDataMatricula(data);
 		pessoaService.salvar(aluno.getPessoa());
 		return alunoRepository.save(aluno);
 	}
@@ -56,7 +55,7 @@ public class AlunoService {
 		return alunoRepository.findAll(pageable);
 	}
 
-	public Optional<Aluno> findById(long codigo) {
+	public Optional<Aluno> findById(Long codigo) {
 		return alunoRepository.findById(codigo);
 	}
 
