@@ -23,7 +23,6 @@ public class PessoaService {
 	private PessoaRepository pessoaRepository;
 
 	public Pessoa salvar(Pessoa pessoa) {
-		pessoa.setAtivo(true);
 		return pessoaRepository.save(pessoa);
 	}
 
