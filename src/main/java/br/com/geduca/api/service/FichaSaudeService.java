@@ -2,7 +2,6 @@ package br.com.geduca.api.service;
 
 import java.util.Optional;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
@@ -24,12 +23,6 @@ public class FichaSaudeService {
 
 	public FichaSaude salvar(FichaSaude FichaSaude) {
 		return fichaSaudeRepository.save(FichaSaude);
-	}
-
-	public FichaSaude atualizar(Long codigo, FichaSaude FichaSaude) {
-		FichaSaude FichaSaudeSalva = buscarFichaSaudePeloCodigo(codigo);
-		BeanUtils.copyProperties(FichaSaude, FichaSaudeSalva, "codigo");
-		return fichaSaudeRepository.save(FichaSaudeSalva);
 	}
 
 	public FichaSaude buscarFichaSaudePeloCodigo(Long codigo) {
