@@ -20,11 +20,11 @@ import lombok.Setter;
 @Getter
 @EqualsAndHashCode
 @Entity(name = "tb_restricao_alimentar")
-public class RestricaoAliementar {
+public class RestricaoAlimentar {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_ficha_saude")
+	@Column(name = "id_restricao_alimentar")
 	private Long codigo;
 
 	private String nome;

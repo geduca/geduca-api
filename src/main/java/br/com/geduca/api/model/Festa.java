@@ -27,7 +27,7 @@ public class Festa {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_evento")
+	@Column(name = "id_festa")
 	private Long codigo;
 
 	private String nome;
