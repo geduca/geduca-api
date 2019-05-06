@@ -30,7 +30,7 @@ public class MovimentacaoEstoque {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_produto_estoque")
+	@Column(name = "id_movimentacao_estoque")
 	private Long codigo;
 
 	@OneToOne
