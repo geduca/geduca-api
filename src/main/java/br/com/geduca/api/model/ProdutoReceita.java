@@ -26,7 +26,7 @@ public class ProdutoReceita {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_receita")
+	@Column(name = "id_produto_receita")
 	private Long codigo;
 
 	@ManyToOne

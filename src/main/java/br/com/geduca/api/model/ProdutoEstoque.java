@@ -35,6 +35,9 @@ public class ProdutoEstoque {
 	private Produto produto;
 
 	@ManyToOne
+	private Estoque estoque;
+
+	@ManyToOne
 	private Unidade unidade;
 
 	private Long quantidade;
