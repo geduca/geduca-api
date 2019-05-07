@@ -19,24 +19,20 @@ import br.com.geduca.api.repository.FornecedorRepository;
 public class FornecedorService {
 
 	@Autowired
-	private FornecedorRepository FornecedorRepository;
+	private FornecedorRepository fornecedorRepository;
 
 	public Fornecedor salvar(Fornecedor fornecedor) {
-		return FornecedorRepository.save(fornecedor);
+		return fornecedorRepository.save(fornecedor);
 	}
 
 	public Fornecedor atualizar(Long codigo, Fornecedor fornecedor) {
-//		Aluno alunoSalvo = buscaAlunoPeloCodigo(codigo);
-//		Pessoa pessoaSalvo = pessoaService.buscarPessoaPeloCodigo(alunoSalvo.getPessoa().getCodigo());
-//		BeanUtils.copyProperties(aluno.getPessoa(), pessoaSalvo, "codigo");
-//		BeanUtils.copyProperties(aluno, alunoSalvo, "codigo");
-//		pessoaService.salvar(pessoaSalvo);
-//		return FornecedorRepository.save(alunoSalvo);
-		return null;
+		Fornecedor fornecedorSalvo = fornecedorRepository.findById(codigo).get();
+		fornecedorSalvo = fornecedor;
+		return fornecedorRepository.save(fornecedorSalvo);
 	}
 
 	public Fornecedor buscaFornecedorPeloCodigo(Long codigo) {
-		Fornecedor fornecedorSalvo = FornecedorRepository.getOne(codigo);
+		Fornecedor fornecedorSalvo = fornecedorRepository.getOne(codigo);
 		if (fornecedorSalvo == null) {
 			throw new EmptyResultDataAccessException(1);
 		}
@@ -44,15 +40,15 @@ public class FornecedorService {
 	}
 
 	public Page<Fornecedor> findAll(Pageable pageable) {
-		return FornecedorRepository.findAll(pageable);
+		return fornecedorRepository.findAll(pageable);
 	}
 
 	public Optional<Fornecedor> findById(long codigo) {
-		return FornecedorRepository.findById(codigo);
+		return fornecedorRepository.findById(codigo);
 	}
 
 	public void deleteById(Long codigo) {
-		FornecedorRepository.deleteById(codigo);
+		fornecedorRepository.deleteById(codigo);
 	}
 
 }
