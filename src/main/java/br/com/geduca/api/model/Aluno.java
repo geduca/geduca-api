@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -43,8 +42,7 @@ public class Aluno {
 	@OneToOne
 	private FichaSaude fichaSaude;
 
-	@OneToMany
-	@JoinTable(name = "rl_aluno_restricao_alimentar")
-	private List<RestricaoAlimentar> restricoesAlimentares;
+	@OneToMany(mappedBy = "aluno")
+	private List<AlunoRestricaoAlimentar> AlunoRestricoesAlimentares;
 
 }
