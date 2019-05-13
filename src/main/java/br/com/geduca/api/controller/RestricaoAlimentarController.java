@@ -1,5 +1,6 @@
 package br.com.geduca.api.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
@@ -46,8 +47,14 @@ public class RestricaoAlimentarController {
 		return restricaoAlimentarService.findAll(PageRequest.of(pagina, max));
 	}
 
+	@GetMapping(value = "lista")
+	public List<RestricaoAlimentar> listarTodos() {
+		return restricaoAlimentarService.findAllList();
+	}
+
 	@PostMapping
-	public ResponseEntity<RestricaoAlimentar> criar(@RequestBody RestricaoAlimentar restricaoAlimentar, HttpServletResponse response) {
+	public ResponseEntity<RestricaoAlimentar> criar(@RequestBody RestricaoAlimentar restricaoAlimentar,
+			HttpServletResponse response) {
 		RestricaoAlimentar restricaoAlimentarSalva = restricaoAlimentarService.salvar(restricaoAlimentar);
 		publisher.publishEvent(new RecursoCriadoEvent(this, response, restricaoAlimentarSalva.getCodigo()));
 		return ResponseEntity.status(HttpStatus.CREATED).body(restricaoAlimentarSalva);
@@ -69,7 +76,8 @@ public class RestricaoAlimentarController {
 	}
 
 	@PutMapping("/{codigo}")
-	public ResponseEntity<RestricaoAlimentar	> atualizar(@PathVariable Long codigo, @RequestBody RestricaoAlimentar restricaoAlimentar) {
+	public ResponseEntity<RestricaoAlimentar> atualizar(@PathVariable Long codigo,
+			@RequestBody RestricaoAlimentar restricaoAlimentar) {
 		RestricaoAlimentar restricaoAlimentarSalva = restricaoAlimentarService.atualizar(codigo, restricaoAlimentar);
 		return ResponseEntity.ok(restricaoAlimentarSalva);
 	}
