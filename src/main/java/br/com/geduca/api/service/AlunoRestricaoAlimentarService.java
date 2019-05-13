@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.geduca.api.model.Aluno;
 import br.com.geduca.api.model.AlunoRestricaoAlimentar;
-import br.com.geduca.api.repository.AlunoResticaoAlimentarRepository;
+import br.com.geduca.api.repository.AlunoRestricaoAlimentarRepository;
 
 /**
  * @author gustavoclay
@@ -20,7 +20,7 @@ public class AlunoRestricaoAlimentarService {
 	private AlunoService alunoService;
 
 	@Autowired
-	private AlunoResticaoAlimentarRepository alunoRestricaoAlimentarRepository;
+	private AlunoRestricaoAlimentarRepository alunoRestricaoAlimentarRepository;
 
 	public AlunoRestricaoAlimentar save(AlunoRestricaoAlimentar alunoRestricaoAlimentar) {
 		return alunoRestricaoAlimentarRepository.save(alunoRestricaoAlimentar);
@@ -29,11 +29,15 @@ public class AlunoRestricaoAlimentarService {
 	public void deleteById(Long codigo) {
 		alunoRestricaoAlimentarRepository.deleteById(codigo);
 	}
+	
+	public List<AlunoRestricaoAlimentar> listaTodos() {
+		return alunoRestricaoAlimentarRepository.findAll();
+	}
 
 	public List<AlunoRestricaoAlimentar> getByAluno(Long codigoAluno) {
 		Aluno aluno = alunoService.buscaAlunoPeloCodigo(codigoAluno);
 		if (aluno != null) {
-			return alunoRestricaoAlimentarRepository.buscarTodosPorAluno(aluno);
+			return alunoRestricaoAlimentarRepository.findAllByAluno(aluno);
 		}
 		return null;
 	}

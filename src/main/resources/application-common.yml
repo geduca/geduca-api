@@ -17,7 +17,6 @@ spring:
           CharSet: utf-8
           useUnicode: true
   jackson:
-    date-format: yyyy-MM-dd
     serialization:
       FAIL_ON_EMPTY_BEANS: false
   http:

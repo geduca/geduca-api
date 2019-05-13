@@ -30,7 +30,12 @@ public class AlunoRestricaoAlimentarController {
 
 	@Autowired
 	private AlunoRestricaoAlimentarService alunoRestricaoAlimentarService;
-
+	
+	@GetMapping(value = "todos")
+	public List<AlunoRestricaoAlimentar> listaTodos() {
+		return alunoRestricaoAlimentarService.listaTodos();
+	}
+	
 	@GetMapping
 	public List<AlunoRestricaoAlimentar> buscaPorAluno(@RequestParam Long codigoAluno) {
 		return alunoRestricaoAlimentarService.getByAluno(codigoAluno);
@@ -47,5 +52,7 @@ public class AlunoRestricaoAlimentarController {
 	public void remover(@PathVariable Long codigo) {
 		alunoRestricaoAlimentarService.deleteById(codigo);
 	}
+	
+	
 
 }
