@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.geduca.api.model.AlunoRestricaoAlimentar;
+import br.com.geduca.api.model.RestricaoAlimentar;
 import br.com.geduca.api.service.AlunoRestricaoAlimentarService;
 
 /**
@@ -30,21 +31,20 @@ public class AlunoRestricaoAlimentarController {
 
 	@Autowired
 	private AlunoRestricaoAlimentarService alunoRestricaoAlimentarService;
-	
+
 	@GetMapping(value = "todos")
 	public List<AlunoRestricaoAlimentar> listaTodos() {
 		return alunoRestricaoAlimentarService.listaTodos();
 	}
-	
+
 	@GetMapping
 	public List<AlunoRestricaoAlimentar> buscaPorAluno(@RequestParam Long codigoAluno) {
 		return alunoRestricaoAlimentarService.getByAluno(codigoAluno);
 	}
 
 	@PostMapping
-	public ResponseEntity<AlunoRestricaoAlimentar> criar(@RequestBody AlunoRestricaoAlimentar alunoRestricaoAlimentar) {
-		AlunoRestricaoAlimentar araSalva = alunoRestricaoAlimentarService.save(alunoRestricaoAlimentar);
-		return ResponseEntity.status(HttpStatus.CREATED).body(araSalva);
+	public ResponseEntity<Object> criar(@RequestParam Long codigoAluno, @RequestBody List<RestricaoAlimentar> restricoes) {
+		return alunoRestricaoAlimentarService.save(codigoAluno, restricoes);
 	}
 
 	@DeleteMapping("/{codigo}")
@@ -52,7 +52,5 @@ public class AlunoRestricaoAlimentarController {
 	public void remover(@PathVariable Long codigo) {
 		alunoRestricaoAlimentarService.deleteById(codigo);
 	}
-	
-	
 
 }
