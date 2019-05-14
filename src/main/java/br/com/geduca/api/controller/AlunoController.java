@@ -1,4 +1,6 @@
-	package br.com.geduca.api.controller;
+package br.com.geduca.api.controller;
+
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -39,7 +41,12 @@ public class AlunoController {
 	public Page<Aluno> pesquisar(@RequestParam int pagina, @RequestParam int max) {
 		return alunoService.findAll(PageRequest.of(pagina, max));
 	}
-	
+
+	@GetMapping(value = "lista")
+	public List<Aluno> pesquisar() {
+		return alunoService.findAllList();
+	}
+
 	@GetMapping("/{codigo}")
 	public ResponseEntity<Aluno> buscaPeloCodigo(@PathVariable long codigo) {
 		Aluno aluno = alunoService.buscaAlunoPeloCodigo(codigo);

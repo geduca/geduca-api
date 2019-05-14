@@ -1,6 +1,7 @@
 package br.com.geduca.api.service;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
@@ -41,7 +42,8 @@ public class AlunoService {
 	public Aluno atualizar(Long codigo, Aluno aluno) {
 		Aluno alunoSalvo = buscaAlunoPeloCodigo(codigo);
 		Pessoa pessoaSalvo = pessoaService.buscarPessoaPeloCodigo(alunoSalvo.getPessoa().getCodigo());
-		FichaSaude fichaSaudeSalvo = fichaSaudeService.buscarFichaSaudePeloCodigo(alunoSalvo.getFichaSaude().getCodigo());
+		FichaSaude fichaSaudeSalvo = fichaSaudeService
+				.buscarFichaSaudePeloCodigo(alunoSalvo.getFichaSaude().getCodigo());
 		BeanUtils.copyProperties(aluno, alunoSalvo, "codigo");
 		BeanUtils.copyProperties(aluno.getPessoa(), pessoaSalvo, "codigo");
 		BeanUtils.copyProperties(aluno.getFichaSaude(), fichaSaudeSalvo, "codigo");
@@ -60,6 +62,10 @@ public class AlunoService {
 
 	public Page<Aluno> findAll(Pageable pageable) {
 		return alunoRepository.findAll(pageable);
+	}
+
+	public List<Aluno> findAllList() {
+		return alunoRepository.findAll();
 	}
 
 	public Optional<Aluno> findById(long codigo) {
