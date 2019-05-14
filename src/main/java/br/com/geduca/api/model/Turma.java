@@ -9,7 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 import br.com.geduca.api.model.enums.PeriodoEnum;
 import lombok.EqualsAndHashCode;
@@ -37,10 +37,11 @@ public class Turma {
 	private String nome;
 
 	private String sala;
-	
+
 	private Boolean ativo;
 
-	@OneToOne
+	@ManyToOne
+	@JoinColumn
 	private Curso curso;
 
 	@Enumerated
