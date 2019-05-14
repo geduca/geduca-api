@@ -1,5 +1,6 @@
 package br.com.geduca.api.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
@@ -43,7 +44,11 @@ public class RestricaoAlimentarService {
 	public Page<RestricaoAlimentar> findAll(Pageable pageable) {
 		return restricaoAlimentarRepository.findAll(pageable);
 	}
-
+	
+	public List<RestricaoAlimentar> findAllList() {
+		return restricaoAlimentarRepository.findAll();
+	}
+	
 	public Optional<RestricaoAlimentar> findById(long codigo) {
 		return restricaoAlimentarRepository.findById(codigo);
 	}
