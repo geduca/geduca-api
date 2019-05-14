@@ -29,12 +29,12 @@ public class CursoService {
 	}
 
 	public Curso atualizar(Long codigo, Curso curso) {
-		Curso cursoSalvo = buscarPessoaPeloCodigo(codigo);
+		Curso cursoSalvo = buscarCursoPeloCodigo(codigo);
 		BeanUtils.copyProperties(curso, cursoSalvo, "codigo");
 		return cursoRepository.save(cursoSalvo);
 	}
 
-	public Curso buscarPessoaPeloCodigo(Long codigo) {
+	public Curso buscarCursoPeloCodigo(Long codigo) {
 		Curso cursoSalvo = cursoRepository.getOne(codigo);
 		if (cursoSalvo == null) {
 			throw new EmptyResultDataAccessException(1);
