@@ -22,8 +22,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.geduca.api.model.Curso;
-import br.com.geduca.api.service.CursoService;
+import br.com.geduca.api.model.Turma;
+import br.com.geduca.api.service.TurmaService;
 
 /**
  * @author gustavoclay
@@ -31,34 +31,34 @@ import br.com.geduca.api.service.CursoService;
  */
 @RestController
 @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-@RequestMapping("/cursos")
-public class CursoController {
+@RequestMapping("/turmas")
+public class TurmaController {
 
 	@Autowired
-	private CursoService cursoService;
+	private TurmaService turmaService;
 
 	@GetMapping
-	public Page<Curso> pesquisar(@RequestParam(required = false, defaultValue = "%") String nome,
+	public Page<Turma> pesquisar(@RequestParam(required = false, defaultValue = "%") String nome,
 			@RequestParam int pagina, @RequestParam int max) {
-		return cursoService.findByNomeContaining(nome, PageRequest.of(pagina, max));
+		return turmaService.findByNomeContaining(nome, PageRequest.of(pagina, max));
 	}
 
 	@GetMapping(value = "lista")
-	public List<Curso> listarTodos() {
-		return cursoService.findAllList();
+	public List<Turma> listarTodos() {
+		return turmaService.findAllList();
 	}
 
 	@PostMapping
-	public ResponseEntity<Curso> criar(@RequestBody Curso curso, HttpServletResponse response) {
-		Curso cursoSalvo = cursoService.salvar(curso);
-		return ResponseEntity.status(HttpStatus.CREATED).body(cursoSalvo);
+	public ResponseEntity<Turma> criar(@RequestBody Turma turma, HttpServletResponse response) {
+		Turma turmaSalvo = turmaService.salvar(turma);
+		return ResponseEntity.status(HttpStatus.CREATED).body(turmaSalvo);
 	}
 
 	@GetMapping("/{codigo}")
-	public ResponseEntity<Optional<Curso>> buscaPeloCodigo(@PathVariable Long codigo) {
-		Optional<Curso> curso = cursoService.findById(codigo);
-		if (curso != null)
-			return ResponseEntity.ok(curso);
+	public ResponseEntity<Optional<Turma>> buscaPeloCodigo(@PathVariable Long codigo) {
+		Optional<Turma> turma = turmaService.findById(codigo);
+		if (turma != null)
+			return ResponseEntity.ok(turma);
 		else
 			return ResponseEntity.noContent().build();
 	}
@@ -66,13 +66,13 @@ public class CursoController {
 	@DeleteMapping("/{codigo}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void remover(@PathVariable Long codigo) {
-		cursoService.deleteById(codigo);
+		turmaService.deleteById(codigo);
 	}
 
 	@PutMapping("/{codigo}")
-	public ResponseEntity<Curso> atualizar(@PathVariable Long codigo, @RequestBody Curso curso) {
-		Curso cursoSalvo = cursoService.atualizar(codigo, curso);
-		return ResponseEntity.ok(cursoSalvo);
+	public ResponseEntity<Turma> atualizar(@PathVariable Long codigo, @RequestBody Turma turma) {
+		Turma turmaSalvo = turmaService.atualizar(codigo, turma);
+		return ResponseEntity.ok(turmaSalvo);
 	}
 
 }
