@@ -39,7 +39,7 @@ public class TurmaAlunoController {
 
 	@GetMapping(value = "turma")
 	public List<TurmaAluno> buscaPorTurma(@RequestParam Long codigoTurma) {
-		return turmaAlunoService.getByAluno(codigoTurma);
+		return turmaAlunoService.getByTurma(codigoTurma);
 	}
 
 	@GetMapping(value = "aluno")
