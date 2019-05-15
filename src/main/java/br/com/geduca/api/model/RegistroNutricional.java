@@ -14,7 +14,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Classe RegistroNutricial
+ * Classe RegistroNutricional
  * 
  * @author gustavoclay
  * 
