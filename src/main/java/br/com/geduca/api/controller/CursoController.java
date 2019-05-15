@@ -1,5 +1,6 @@
 package br.com.geduca.api.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
@@ -40,6 +41,11 @@ public class CursoController {
 	public Page<Curso> pesquisar(@RequestParam(required = false, defaultValue = "%") String nome,
 			@RequestParam int pagina, @RequestParam int max) {
 		return cursoService.findByNomeContaining(nome, PageRequest.of(pagina, max));
+	}
+
+	@GetMapping(value = "lista")
+	public List<Curso> listarTodos() {
+		return cursoService.findAllList();
 	}
 
 	@PostMapping

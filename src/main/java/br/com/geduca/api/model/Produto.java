@@ -3,6 +3,7 @@ package br.com.geduca.api.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -45,7 +46,7 @@ public class Produto {
 	@Column(name = "dt_validade")
 	private LocalDate dataValidade;
 
-	@ManyToMany
+	@ManyToMany(cascade= {CascadeType.MERGE, CascadeType.REMOVE})
 	@JoinTable(name="rl_produto_fornecedor")
 	private List<Fornecedor> fornecedores;
 

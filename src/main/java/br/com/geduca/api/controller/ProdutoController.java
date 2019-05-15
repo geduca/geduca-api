@@ -1,6 +1,4 @@
-package br.com.geduca.api.controller;
-
-import java.util.List;
+	package br.com.geduca.api.controller;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -22,8 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.geduca.api.model.Aluno;
-import br.com.geduca.api.service.AlunoService;
+import br.com.geduca.api.model.Produto;
+import br.com.geduca.api.service.ProdutoService;
 
 /**
  * @author gustavoclay
@@ -31,44 +29,39 @@ import br.com.geduca.api.service.AlunoService;
  */
 @RestController
 @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-@RequestMapping("/alunos")
-public class AlunoController {
+@RequestMapping("/produtos")
+public class ProdutoController {
 
 	@Autowired
-	private AlunoService alunoService;
+	private ProdutoService produtoService;
 
 	@GetMapping
-	public Page<Aluno> pesquisar(@RequestParam int pagina, @RequestParam int max) {
-		return alunoService.findAll(PageRequest.of(pagina, max));
+	public Page<Produto> pesquisar(@RequestParam int pagina, @RequestParam int max) {
+		return produtoService.findAll(PageRequest.of(pagina, max));
 	}
-
-	@GetMapping(value = "lista")
-	public List<Aluno> pesquisar() {
-		return alunoService.findAllList();
-	}
-
+	
 	@GetMapping("/{codigo}")
-	public ResponseEntity<Aluno> buscaPeloCodigo(@PathVariable long codigo) {
-		Aluno aluno = alunoService.buscaAlunoPeloCodigo(codigo);
-		return aluno != null ? ResponseEntity.ok(aluno) : ResponseEntity.noContent().build();
+	public ResponseEntity<Produto> buscaPeloCodigo(@PathVariable long codigo) {
+		Produto produto = produtoService.buscaProdutoPeloCodigo(codigo);
+		return produto != null ? ResponseEntity.ok(produto) : ResponseEntity.noContent().build();
 	}
 
 	@PostMapping
-	public ResponseEntity<Aluno> criar(@RequestBody Aluno aluno, HttpServletResponse response) {
-		Aluno alunoSalvo = alunoService.salvar(aluno);
-		return ResponseEntity.status(HttpStatus.CREATED).body(alunoSalvo);
+	public ResponseEntity<Produto> criar(@RequestBody Produto produto, HttpServletResponse response) {
+		Produto produtoSalvo = produtoService.salvar(produto);
+		return ResponseEntity.status(HttpStatus.CREATED).body(produtoSalvo);
 	}
 
 	@DeleteMapping("/{codigo}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void remover(@PathVariable Long codigo) {
-		alunoService.deleteById(codigo);
+		produtoService.deleteById(codigo);
 	}
 
 	@PutMapping("/{codigo}")
-	public ResponseEntity<Aluno> atualizar(@PathVariable Long codigo, @Valid @RequestBody Aluno aluno) {
-		Aluno alunoSalvo = alunoService.atualizar(codigo, aluno);
-		return ResponseEntity.ok(alunoSalvo);
+	public ResponseEntity<Produto> atualizar(@PathVariable Long codigo, @Valid @RequestBody Produto produto) {
+		Produto produtoSalvo = produtoService.atualizar(codigo, produto);
+		return ResponseEntity.ok(produtoSalvo);
 	}
 
 }

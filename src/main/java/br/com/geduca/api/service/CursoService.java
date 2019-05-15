@@ -1,5 +1,6 @@
 package br.com.geduca.api.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.com.geduca.api.model.Curso;
+import br.com.geduca.api.model.RestricaoAlimentar;
 import br.com.geduca.api.repository.CursoRepository;
 
 /**
@@ -44,6 +46,10 @@ public class CursoService {
 
 	public Page<Curso> findByNomeContaining(String nome, Pageable paginacao) {
 		return cursoRepository.findByNomeContaining(nome, paginacao);
+	}
+	
+	public List<Curso> findAllList() {
+		return cursoRepository.findAll();
 	}
 
 	public Optional<Curso> findById(Long codigo) {

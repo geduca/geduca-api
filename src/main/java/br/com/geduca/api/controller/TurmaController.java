@@ -1,9 +1,9 @@
 package br.com.geduca.api.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,8 +22,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.geduca.api.model.Aluno;
-import br.com.geduca.api.service.AlunoService;
+import br.com.geduca.api.model.Turma;
+import br.com.geduca.api.service.TurmaService;
 
 /**
  * @author gustavoclay
@@ -31,44 +31,48 @@ import br.com.geduca.api.service.AlunoService;
  */
 @RestController
 @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-@RequestMapping("/alunos")
-public class AlunoController {
+@RequestMapping("/turmas")
+public class TurmaController {
 
 	@Autowired
-	private AlunoService alunoService;
+	private TurmaService turmaService;
 
 	@GetMapping
-	public Page<Aluno> pesquisar(@RequestParam int pagina, @RequestParam int max) {
-		return alunoService.findAll(PageRequest.of(pagina, max));
+	public Page<Turma> pesquisar(@RequestParam(required = false, defaultValue = "%") String nome,
+			@RequestParam int pagina, @RequestParam int max) {
+		return turmaService.findByNomeContaining(nome, PageRequest.of(pagina, max));
 	}
 
 	@GetMapping(value = "lista")
-	public List<Aluno> pesquisar() {
-		return alunoService.findAllList();
-	}
-
-	@GetMapping("/{codigo}")
-	public ResponseEntity<Aluno> buscaPeloCodigo(@PathVariable long codigo) {
-		Aluno aluno = alunoService.buscaAlunoPeloCodigo(codigo);
-		return aluno != null ? ResponseEntity.ok(aluno) : ResponseEntity.noContent().build();
+	public List<Turma> listarTodos() {
+		return turmaService.findAllList();
 	}
 
 	@PostMapping
-	public ResponseEntity<Aluno> criar(@RequestBody Aluno aluno, HttpServletResponse response) {
-		Aluno alunoSalvo = alunoService.salvar(aluno);
-		return ResponseEntity.status(HttpStatus.CREATED).body(alunoSalvo);
+	public ResponseEntity<Turma> criar(@RequestBody Turma turma, HttpServletResponse response) {
+		Turma turmaSalvo = turmaService.salvar(turma);
+		return ResponseEntity.status(HttpStatus.CREATED).body(turmaSalvo);
+	}
+
+	@GetMapping("/{codigo}")
+	public ResponseEntity<Optional<Turma>> buscaPeloCodigo(@PathVariable Long codigo) {
+		Optional<Turma> turma = turmaService.findById(codigo);
+		if (turma != null)
+			return ResponseEntity.ok(turma);
+		else
+			return ResponseEntity.noContent().build();
 	}
 
 	@DeleteMapping("/{codigo}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void remover(@PathVariable Long codigo) {
-		alunoService.deleteById(codigo);
+		turmaService.deleteById(codigo);
 	}
 
 	@PutMapping("/{codigo}")
-	public ResponseEntity<Aluno> atualizar(@PathVariable Long codigo, @Valid @RequestBody Aluno aluno) {
-		Aluno alunoSalvo = alunoService.atualizar(codigo, aluno);
-		return ResponseEntity.ok(alunoSalvo);
+	public ResponseEntity<Turma> atualizar(@PathVariable Long codigo, @RequestBody Turma turma) {
+		Turma turmaSalvo = turmaService.atualizar(codigo, turma);
+		return ResponseEntity.ok(turmaSalvo);
 	}
 
 }
