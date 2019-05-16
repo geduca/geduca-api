@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.geduca.api.model.Aluno;
 import br.com.geduca.api.model.FichaSaude;
+import br.com.geduca.api.model.Fornecedor;
 import br.com.geduca.api.model.Pessoa;
 import br.com.geduca.api.model.Produto;
 import br.com.geduca.api.repository.FornecedorRepository;
@@ -26,25 +27,15 @@ public class ProdutoService {
 
 	@Autowired
 	private ProdutoRepository produtoRepository;
-	
-	@Autowired
-	private FornecedorService fornecedorService;
 
 	public Produto salvar(Produto produto) {
 		return produtoRepository.save(produto);
 	}
 
 	public Produto atualizar(Long codigo, Produto produto) {
-//		Aluno alunoSalvo = buscaAlunoPeloCodigo(codigo);
-//		Pessoa pessoaSalvo = pessoaService.buscarPessoaPeloCodigo(alunoSalvo.getPessoa().getCodigo());
-//		FichaSaude fichaSaudeSalvo = fichaSaudeService.buscarFichaSaudePeloCodigo(alunoSalvo.getFichaSaude().getCodigo());
-//		BeanUtils.copyProperties(produto, alunoSalvo, "codigo");
-//		BeanUtils.copyProperties(produto.getPessoa(), pessoaSalvo, "codigo");
-//		BeanUtils.copyProperties(produto.getFichaSaude(), fichaSaudeSalvo, "codigo");
-//		fichaSaudeService.salvar(fichaSaudeSalvo);
-//		pessoaService.salvar(pessoaSalvo);
-//		return produtoRepository.save(alunoSalvo);
-		return null;
+		Produto produtoSalvo = produtoRepository.findById(codigo).get();
+		produtoSalvo = produto;
+		return produtoRepository.save(produtoSalvo);
 	}
 
 	public Produto buscaProdutoPeloCodigo(Long codigo) {
