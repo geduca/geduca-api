@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import br.com.geduca.api.model.enums.TipoSanguineoEnum;
 import lombok.EqualsAndHashCode;
@@ -22,7 +23,8 @@ import lombok.Setter;
 @Setter
 @Getter
 @EqualsAndHashCode
-@Entity(name = "tb_ficha_saude")
+@Entity
+@Table(name = "tb_ficha_saude")
 public class FichaSaude {
 
 	@Id

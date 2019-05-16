@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -26,7 +27,8 @@ import lombok.Setter;
 @Setter
 @Getter
 @EqualsAndHashCode
-@Entity(name = "tb_produto")
+@Entity
+@Table(name = "tb_produto")
 public class Produto {
 
 	@Id
@@ -46,8 +48,8 @@ public class Produto {
 	@Column(name = "dt_validade")
 	private LocalDate dataValidade;
 
-	@ManyToMany(cascade= {CascadeType.MERGE, CascadeType.REMOVE})
-	@JoinTable(name="rl_produto_fornecedor")
+	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.REMOVE })
+	@JoinTable(name = "rl_produto_fornecedor")
 	private List<Fornecedor> fornecedores;
 
 }

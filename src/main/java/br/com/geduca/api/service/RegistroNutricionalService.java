@@ -7,9 +7,16 @@ import java.util.Optional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import br.com.geduca.api.model.Aluno;
+import br.com.geduca.api.model.IndiceIMC;
 import br.com.geduca.api.model.RegistroNutricional;
+import br.com.geduca.api.model.enums.ResultadoIMCEnum;
+import br.com.geduca.api.model.enums.SexoEnum;
+import br.com.geduca.api.repository.IndiceIMCRepository;
 import br.com.geduca.api.repository.RegistroNutricionalRepository;
 
 /**
@@ -22,15 +29,38 @@ public class RegistroNutricionalService {
 
 	@Autowired
 	private RegistroNutricionalRepository registroNutricionalRepository;
+	
+	@Autowired
+	private AlunoService alunoService;
+	
+	@Autowired
+	private PessoaService pessoaService;
+
+	@Autowired
+	private IndiceIMCRepository imcRepository;
 
 	public RegistroNutricional salvar(RegistroNutricional registroNutricional) {
+		Aluno aluno = alunoService.buscaAlunoPeloCodigo(registroNutricional.getAluno().getCodigo());
+		int idade = pessoaService.calculaIdade(aluno.getPessoa());
+		
+		registroNutricional.setImc(calculaImc(registroNutricional.getPeso(), registroNutricional.getAltura()));
+		registroNutricional.setResultado(resultadoImc(registroNutricional.getImc(), idade, aluno.getPessoa().getSexo()));
 		registroNutricional.setDataRegistro(LocalDate.now());
+		
 		return registroNutricionalRepository.save(registroNutricional);
 	}
 
 	public RegistroNutricional atualizar(Long codigo, RegistroNutricional registroNutricional) {
 		RegistroNutricional registroNutricionalSalvo = buscarRegistroNutricionalPeloCodigo(codigo);
 		BeanUtils.copyProperties(registroNutricional, registroNutricionalSalvo, "codigo");
+		Aluno aluno = alunoService.buscaAlunoPeloCodigo(registroNutricional.getAluno().getCodigo());
+		
+		int idade = pessoaService.calculaIdade(aluno.getPessoa());
+		
+		registroNutricional.setImc(calculaImc(registroNutricional.getPeso(), registroNutricional.getAltura()));
+		registroNutricional.setResultado(resultadoImc(registroNutricional.getImc(), idade, aluno.getPessoa().getSexo()));
+		registroNutricional.setDataRegistro(LocalDate.now());
+		
 		return registroNutricionalRepository.save(registroNutricionalSalvo);
 	}
 
@@ -45,6 +75,11 @@ public class RegistroNutricionalService {
 	public List<RegistroNutricional> findAllList() {
 		return registroNutricionalRepository.findAll();
 	}
+	
+	public Page<RegistroNutricional> findAllByAluno(Long codigoAluno, Pageable pageable) {
+		Aluno aluno = alunoService.buscaAlunoPeloCodigo(codigoAluno);
+		return registroNutricionalRepository.findAllByAluno(aluno, pageable);
+	}
 
 	public Optional<RegistroNutricional> findById(Long codigo) {
 		return registroNutricionalRepository.findById(codigo);
@@ -53,10 +88,24 @@ public class RegistroNutricionalService {
 	public void deleteById(Long codigo) {
 		registroNutricionalRepository.deleteById(codigo);
 	}
-	
-//	TODO: IMPLEMENTAR
-//	public float calculaImc() {
-//		
-//	}
+
+	public float calculaImc(float peso, float altura) {
+		return peso / (altura * altura);
+	}
+
+	public ResultadoIMCEnum resultadoImc(float imc, int idade, SexoEnum sexo) {
+		IndiceIMC indice = imcRepository.findByIdadeSexo(idade, sexo);
+
+		if (imc <= indice.getMinimo()) {
+			return ResultadoIMCEnum.ABAIXO_DO_PESO;
+		} else if (imc <= indice.getNormal()) {
+			return ResultadoIMCEnum.PESO_NORMAL;
+		} else if (imc <= indice.getMaximo()) {
+			return ResultadoIMCEnum.SOBRE_PESO;
+		} else if (imc > indice.getMaximo()) {
+			return ResultadoIMCEnum.OBESIDADE;
+		}
+		return null;
+	}
 
 }

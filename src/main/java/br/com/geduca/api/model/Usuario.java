@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -25,7 +26,8 @@ import lombok.Setter;
 @Setter
 @Getter
 @EqualsAndHashCode
-@Entity(name = "tb_usuario")
+@Entity
+@Table(name = "tb_usuario")
 public class Usuario {
 
 	@Id

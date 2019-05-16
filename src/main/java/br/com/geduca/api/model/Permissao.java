@@ -3,6 +3,7 @@ package br.com.geduca.api.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -17,7 +18,8 @@ import lombok.Setter;
 @Setter
 @Getter
 @EqualsAndHashCode
-@Entity(name = "tb_permissao")
+@Entity
+@Table(name = "tb_permissao")
 public class Permissao {
 
 	@Id

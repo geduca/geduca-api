@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import br.com.geduca.api.model.enums.SexoEnum;
 import lombok.EqualsAndHashCode;
@@ -20,7 +21,8 @@ import lombok.Setter;
 @Setter
 @Getter
 @EqualsAndHashCode
-@Entity(name = "tb_indice_imc")
+@Entity
+@Table(name = "tb_indice_imc")
 public class IndiceIMC {
 	
 	@Id
@@ -28,7 +30,7 @@ public class IndiceIMC {
 	@Column(name = "id_indice_imc")
 	private Long codigo;
 	
-	private Long idade;
+	private int idade;
 	
 	private SexoEnum sexo;
 

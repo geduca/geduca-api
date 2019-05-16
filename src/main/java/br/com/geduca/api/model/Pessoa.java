@@ -9,6 +9,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import br.com.geduca.api.model.enums.SexoEnum;
 import lombok.EqualsAndHashCode;
@@ -25,24 +26,25 @@ import lombok.Setter;
 @Setter
 @Getter
 @EqualsAndHashCode
-@Entity(name = "tb_pessoa")
+@Entity
+@Table(name = "tb_pessoa")
 public class Pessoa {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_pessoa")
 	private Long codigo;
-	
+
 	private Boolean ativo;
 
 	private String nome;
-	
+
 	private String pai;
 
 	private String mae;
 
 	private String cpf;
-	
+
 	private String email;
 
 	private String telefone;
