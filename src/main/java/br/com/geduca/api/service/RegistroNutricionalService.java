@@ -94,6 +94,9 @@ public class RegistroNutricionalService {
 	}
 
 	public ResultadoIMCEnum resultadoImc(float imc, int idade, SexoEnum sexo) {
+		if (idade < 2) {
+			return null;
+		}
 		IndiceIMC indice = imcRepository.findByIdadeSexo(idade, sexo);
 
 		if (imc <= indice.getMinimo()) {
