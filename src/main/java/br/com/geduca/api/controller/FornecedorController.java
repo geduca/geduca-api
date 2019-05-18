@@ -1,5 +1,7 @@
 	package br.com.geduca.api.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.geduca.api.model.Fornecedor;
+import br.com.geduca.api.model.RestricaoAlimentar;
 import br.com.geduca.api.service.FornecedorService;
 
 /**
@@ -38,6 +41,11 @@ public class FornecedorController {
 	@GetMapping
 	public Page<Fornecedor> pesquisar(@RequestParam int pagina, @RequestParam int max) {
 		return fornecedorService.findAll(PageRequest.of(pagina, max));
+	}
+	
+	@GetMapping(value = "lista")
+	public List<Fornecedor> listarTodos() {
+		return fornecedorService.findAllList();
 	}
 	
 	@GetMapping("/{codigo}")
