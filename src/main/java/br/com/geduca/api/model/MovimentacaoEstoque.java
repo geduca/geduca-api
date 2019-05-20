@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import br.com.geduca.api.model.enums.TipoMovimentacaoEstoqueEnum;
 import lombok.EqualsAndHashCode;
@@ -25,7 +26,8 @@ import lombok.Setter;
 @Setter
 @Getter
 @EqualsAndHashCode
-@Entity(name = "tb_movimentacao_estoque")
+@Entity
+@Table(name = "tb_movimentacao_estoque")
 public class MovimentacaoEstoque {
 
 	@Id
@@ -34,7 +36,7 @@ public class MovimentacaoEstoque {
 	private Long codigo;
 
 	@OneToOne
-	private ProdutoEstoque produtoEstoque;
+	private EstoqueProduto produtoEstoque;
 
 	@Enumerated
 	private TipoMovimentacaoEstoqueEnum tipo;

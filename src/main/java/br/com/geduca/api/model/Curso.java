@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -20,7 +21,8 @@ import lombok.Setter;
 @Setter
 @Getter
 @EqualsAndHashCode
-@Entity(name = "tb_curso")
+@Entity
+@Table(name = "tb_curso")
 public class Curso {
 
 	@Id
@@ -31,6 +33,6 @@ public class Curso {
 	private String nome;
 
 	private String descricao;
-	
+
 	private Boolean ativo;
 }

@@ -8,13 +8,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
+import br.com.geduca.api.model.enums.ResultadoIMCEnum;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Classe RegistroNutricial
+ * Classe RegistroNutricional
  * 
  * @author gustavoclay
  * 
@@ -22,7 +24,8 @@ import lombok.Setter;
 @Setter
 @Getter
 @EqualsAndHashCode
-@Entity(name = "tb_registro_nutricional")
+@Entity
+@Table(name = "tb_registro_nutricional")
 public class RegistroNutricional {
 
 	@Id
@@ -38,6 +41,8 @@ public class RegistroNutricional {
 	private Float altura;
 
 	private Float imc;
+
+	private ResultadoIMCEnum resultado;
 
 	@Column(name = "dt_registro")
 	private LocalDate dataRegistro;

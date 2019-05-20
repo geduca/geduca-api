@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import br.com.geduca.api.model.enums.PeriodoEnum;
 import lombok.EqualsAndHashCode;
@@ -26,7 +27,8 @@ import lombok.Setter;
 @Setter
 @Getter
 @EqualsAndHashCode
-@Entity(name = "tb_turma")
+@Entity
+@Table(name = "tb_turma")
 public class Turma {
 
 	@Id

@@ -1,46 +1,42 @@
 package br.com.geduca.api.model;
 
-import java.time.LocalDate;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import br.com.geduca.api.model.enums.SexoEnum;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Classe RegistroAlimentar
- * 
- * @author gustavoclay
- * 
- */
+* Classe IndiceIMC
+* 
+* @author gustavoclay
+* 
+*/
 @Setter
 @Getter
 @EqualsAndHashCode
 @Entity
-@Table(name = "tb_registro_alimentar")
-public class RegistroAlimentar {
-
+@Table(name = "tb_indice_imc")
+public class IndiceIMC {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_registro_alimentar")
+	@Column(name = "id_indice_imc")
 	private Long codigo;
+	
+	private int idade;
+	
+	private SexoEnum sexo;
 
-	@ManyToOne
-	private Aluno aluno;
+	private Float minimo;
 
-	@ManyToOne
-	private Receita receita;
-
-	private String observacoes;
-
-	@Column(name = "dt_registro")
-	private LocalDate dataRegistro;
-
+	private Float normal;
+	
+	private Float maximo;
 }

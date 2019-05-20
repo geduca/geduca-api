@@ -8,13 +8,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Classe ProdutoEstoque
+ * Classe EstoqueProduto
  * 
  * @author gustavoclay
  * 
@@ -23,12 +24,13 @@ import lombok.Setter;
 @Setter
 @Getter
 @EqualsAndHashCode
-@Entity(name = "rl_produto_estoque")
-public class ProdutoEstoque {
+@Entity
+@Table(name = "rl_estoque_produto")
+public class EstoqueProduto {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_produto_estoque")
+	@Column(name = "id_estoque_produto")
 	private Long codigo;
 
 	@ManyToOne

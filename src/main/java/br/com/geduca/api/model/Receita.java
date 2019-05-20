@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 import br.com.geduca.api.model.enums.TipoReceitaEnum;
 import lombok.EqualsAndHashCode;
@@ -26,7 +27,8 @@ import lombok.Setter;
 @Setter
 @Getter
 @EqualsAndHashCode
-@Entity(name = "tb_receita")
+@Entity
+@Table(name = "tb_receita")
 public class Receita {
 
 	@Id

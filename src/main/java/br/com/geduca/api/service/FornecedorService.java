@@ -1,5 +1,6 @@
 package br.com.geduca.api.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.com.geduca.api.model.Fornecedor;
+import br.com.geduca.api.model.RestricaoAlimentar;
 import br.com.geduca.api.repository.FornecedorRepository;
 
 /**
@@ -41,6 +43,10 @@ public class FornecedorService {
 
 	public Page<Fornecedor> findAll(Pageable pageable) {
 		return fornecedorRepository.findAll(pageable);
+	}
+	
+	public List<Fornecedor> findAllList() {
+		return fornecedorRepository.findAll();
 	}
 
 	public Optional<Fornecedor> findById(long codigo) {

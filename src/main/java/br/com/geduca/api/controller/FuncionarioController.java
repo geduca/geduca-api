@@ -1,4 +1,4 @@
-	package br.com.geduca.api.controller;
+package br.com.geduca.api.controller;
 
 import java.util.List;
 
@@ -22,9 +22,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.geduca.api.model.Fornecedor;
-import br.com.geduca.api.model.RestricaoAlimentar;
-import br.com.geduca.api.service.FornecedorService;
+import br.com.geduca.api.model.Funcionario;
+import br.com.geduca.api.service.FuncionarioService;
 
 /**
  * @author gustavoclay
@@ -32,44 +31,44 @@ import br.com.geduca.api.service.FornecedorService;
  */
 @RestController
 @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-@RequestMapping("/fornecedores")
-public class FornecedorController {
+@RequestMapping("/funcionarios")
+public class FuncionarioController {
 
 	@Autowired
-	private FornecedorService fornecedorService;
+	private FuncionarioService funcionarioService;
 
 	@GetMapping
-	public Page<Fornecedor> pesquisar(@RequestParam int pagina, @RequestParam int max) {
-		return fornecedorService.findAll(PageRequest.of(pagina, max));
+	public Page<Funcionario> pesquisar(@RequestParam int pagina, @RequestParam int max) {
+		return funcionarioService.findAll(PageRequest.of(pagina, max));
 	}
-	
+
 	@GetMapping(value = "lista")
-	public List<Fornecedor> listarTodos() {
-		return fornecedorService.findAllList();
+	public List<Funcionario> pesquisar() {
+		return funcionarioService.findAllList();
 	}
-	
+
 	@GetMapping("/{codigo}")
-	public ResponseEntity<Fornecedor> buscaPeloCodigo(@PathVariable long codigo) {
-		Fornecedor fornecedor = fornecedorService.buscaFornecedorPeloCodigo(codigo);
-		return fornecedor != null ? ResponseEntity.ok(fornecedor) : ResponseEntity.noContent().build();
+	public ResponseEntity<Funcionario> buscaPeloCodigo(@PathVariable long codigo) {
+		Funcionario funcionario = funcionarioService.buscaFuncionarioPeloCodigo(codigo);
+		return funcionario != null ? ResponseEntity.ok(funcionario) : ResponseEntity.noContent().build();
 	}
 
 	@PostMapping
-	public ResponseEntity<Fornecedor> criar(@RequestBody Fornecedor fornecedor, HttpServletResponse response) {
-		Fornecedor fornecedorSalvo = fornecedorService.salvar(fornecedor);
-		return ResponseEntity.status(HttpStatus.CREATED).body(fornecedorSalvo);
+	public ResponseEntity<Funcionario> criar(@RequestBody Funcionario funcionario, HttpServletResponse response) {
+		Funcionario funcionarioSalvo = funcionarioService.salvar(funcionario);
+		return ResponseEntity.status(HttpStatus.CREATED).body(funcionarioSalvo);
 	}
 
 	@DeleteMapping("/{codigo}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void remover(@PathVariable Long codigo) {
-		fornecedorService.deleteById(codigo);
+		funcionarioService.deleteById(codigo);
 	}
 
 	@PutMapping("/{codigo}")
-	public ResponseEntity<Fornecedor> atualizar(@PathVariable Long codigo, @Valid @RequestBody Fornecedor fornecedor) {
-		Fornecedor fornecedorSalvo = fornecedorService.atualizar(codigo, fornecedor);
-		return ResponseEntity.ok(fornecedorSalvo);
+	public ResponseEntity<Funcionario> atualizar(@PathVariable Long codigo,
+			@Valid @RequestBody Funcionario funcionario) {
+		Funcionario funcionarioSalvo = funcionarioService.atualizar(codigo, funcionario);
+		return ResponseEntity.ok(funcionarioSalvo);
 	}
-
 }

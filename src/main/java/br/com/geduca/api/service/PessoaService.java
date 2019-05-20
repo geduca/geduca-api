@@ -1,5 +1,7 @@
 package br.com.geduca.api.service;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
@@ -57,5 +59,10 @@ public class PessoaService {
 
 	public void deleteById(Long codigo) {
 		pessoaRepository.deleteById(codigo);
+	}
+	
+	public int calculaIdade(Pessoa pessoa) {
+		Period periodo = Period.between(pessoa.getDataNascimento(), LocalDate.now());
+		return periodo.getYears();
 	}
 }
