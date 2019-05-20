@@ -29,10 +29,10 @@ public class RegistroNutricionalService {
 
 	@Autowired
 	private RegistroNutricionalRepository registroNutricionalRepository;
-	
+
 	@Autowired
 	private AlunoService alunoService;
-	
+
 	@Autowired
 	private PessoaService pessoaService;
 
@@ -42,11 +42,12 @@ public class RegistroNutricionalService {
 	public RegistroNutricional salvar(RegistroNutricional registroNutricional) {
 		Aluno aluno = alunoService.buscaAlunoPeloCodigo(registroNutricional.getAluno().getCodigo());
 		int idade = pessoaService.calculaIdade(aluno.getPessoa());
-		
+
 		registroNutricional.setImc(calculaImc(registroNutricional.getPeso(), registroNutricional.getAltura()));
-		registroNutricional.setResultado(resultadoImc(registroNutricional.getImc(), idade, aluno.getPessoa().getSexo()));
+		registroNutricional
+				.setResultado(resultadoImc(registroNutricional.getImc(), idade, aluno.getPessoa().getSexo()));
 		registroNutricional.setDataRegistro(LocalDate.now());
-		
+
 		return registroNutricionalRepository.save(registroNutricional);
 	}
 
@@ -54,13 +55,14 @@ public class RegistroNutricionalService {
 		RegistroNutricional registroNutricionalSalvo = buscarRegistroNutricionalPeloCodigo(codigo);
 		BeanUtils.copyProperties(registroNutricional, registroNutricionalSalvo, "codigo");
 		Aluno aluno = alunoService.buscaAlunoPeloCodigo(registroNutricional.getAluno().getCodigo());
-		
+
 		int idade = pessoaService.calculaIdade(aluno.getPessoa());
-		
+
 		registroNutricional.setImc(calculaImc(registroNutricional.getPeso(), registroNutricional.getAltura()));
-		registroNutricional.setResultado(resultadoImc(registroNutricional.getImc(), idade, aluno.getPessoa().getSexo()));
+		registroNutricional
+				.setResultado(resultadoImc(registroNutricional.getImc(), idade, aluno.getPessoa().getSexo()));
 		registroNutricional.setDataRegistro(LocalDate.now());
-		
+
 		return registroNutricionalRepository.save(registroNutricionalSalvo);
 	}
 
@@ -75,7 +77,7 @@ public class RegistroNutricionalService {
 	public List<RegistroNutricional> findAllList() {
 		return registroNutricionalRepository.findAll();
 	}
-	
+
 	public Page<RegistroNutricional> findAllByAluno(Long codigoAluno, Pageable pageable) {
 		Aluno aluno = alunoService.buscaAlunoPeloCodigo(codigoAluno);
 		return registroNutricionalRepository.findAllByAluno(aluno, pageable);
@@ -94,9 +96,10 @@ public class RegistroNutricionalService {
 	}
 
 	public ResultadoIMCEnum resultadoImc(float imc, int idade, SexoEnum sexo) {
-		if (idade < 2) {
+		if (idade < 2 || idade > 18) {
 			return null;
 		}
+
 		IndiceIMC indice = imcRepository.findByIdadeSexo(idade, sexo);
 
 		if (imc <= indice.getMinimo()) {
@@ -108,6 +111,7 @@ public class RegistroNutricionalService {
 		} else if (imc > indice.getMaximo()) {
 			return ResultadoIMCEnum.OBESIDADE;
 		}
+		
 		return null;
 	}
 

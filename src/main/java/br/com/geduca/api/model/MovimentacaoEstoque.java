@@ -36,7 +36,7 @@ public class MovimentacaoEstoque {
 	private Long codigo;
 
 	@OneToOne
-	private ProdutoEstoque produtoEstoque;
+	private EstoqueProduto produtoEstoque;
 
 	@Enumerated
 	private TipoMovimentacaoEstoqueEnum tipo;

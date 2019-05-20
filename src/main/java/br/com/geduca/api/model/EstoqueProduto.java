@@ -15,7 +15,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Classe ProdutoEstoque
+ * Classe EstoqueProduto
  * 
  * @author gustavoclay
  * 
@@ -25,12 +25,12 @@ import lombok.Setter;
 @Getter
 @EqualsAndHashCode
 @Entity
-@Table(name = "rl_produto_estoque")
-public class ProdutoEstoque {
+@Table(name = "rl_estoque_produto")
+public class EstoqueProduto {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_produto_estoque")
+	@Column(name = "id_estoque_produto")
 	private Long codigo;
 
 	@ManyToOne
