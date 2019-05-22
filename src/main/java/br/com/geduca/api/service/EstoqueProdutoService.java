@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import br.com.geduca.api.model.Estoque;
 import br.com.geduca.api.model.EstoqueProduto;
 import br.com.geduca.api.model.Produto;
-import br.com.geduca.api.model.util.ProdutoEstoqueUtil;
+import br.com.geduca.api.model.util.EstoqueProdutoUtil;
 import br.com.geduca.api.repository.EstoqueProdutoRepository;
 
 /**
@@ -31,7 +31,7 @@ public class EstoqueProdutoService {
 	@Autowired
 	private EstoqueProdutoRepository estoqueProdutoRepository;
 
-	public ResponseEntity<Object> save(Long codigoEstoque, List<ProdutoEstoqueUtil> produtos) {
+	public ResponseEntity<Object> save(Long codigoEstoque, List<EstoqueProdutoUtil> produtos) {
 		Estoque estoque = estoqueService.buscarEstoquePeloCodigo(codigoEstoque);
 		if (estoque != null) {
 			if (!produtos.isEmpty()) {
