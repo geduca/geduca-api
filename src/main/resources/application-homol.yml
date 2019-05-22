@@ -29,5 +29,5 @@ geduca:
     /teste/**   
   urls-principais-liberadas: >
     /teste/**
-  origin-pemitida: https://geduca-webapp.herokuapp.com/
-  enable-https: false
+  origin-pemitida: https://geduca-webapp.herokuapp.com
+  enable-https: true

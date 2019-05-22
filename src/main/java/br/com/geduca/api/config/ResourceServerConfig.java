@@ -41,9 +41,9 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
-		http.cors().and().authorizeRequests().antMatchers(ArrayUtils.addAll(urlsPrincipaisLiberadas, urlsLiberadas))
+		http.authorizeRequests().antMatchers(ArrayUtils.addAll(urlsPrincipaisLiberadas, urlsLiberadas))
 				.permitAll().anyRequest().authenticated().and().sessionManagement()
-				.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().csrf().disable().cors();
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().csrf().disable();
 	}
 
 	@Override
