@@ -1,34 +1,14 @@
 spring:
-  profiles:
-  datasource:
-    url: jdbc:mysql://localhost:3306/db_geduca?createDatabaseIfNotExist=true&useSSL=false&useUnicode=yes&characterEncoding=UTF-8&characterSetResults=UTF-8&useTimezone=true&serverTimezone=UTC
-    username: root
-    password: null
-  jpa:
-    database: MYSQL
-    show-sql: false
-    hibernate:
-      ddl-auto: update
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-        connection:
-          characterEncoding: utf-8
-          CharSet: utf-8
-          useUnicode: true
   jackson:
     serialization:
       FAIL_ON_EMPTY_BEANS: false
+
   http:
     encoding:
       charset: UTF-8
       enabled: true
       force: true
-
-      
 server:
   port: 12333
   servlet:
     context-path: /geduca
-  
-  
