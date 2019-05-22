@@ -18,7 +18,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @EqualsAndHashCode
-public class ProdutoEstoqueUtil {
+public class EstoqueProdutoUtil {
 
 	private Produto produto;
 

@@ -1,5 +1,7 @@
 	package br.com.geduca.api.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.geduca.api.model.EstoqueProduto;
 import br.com.geduca.api.model.Produto;
 import br.com.geduca.api.service.ProdutoService;
 
@@ -34,6 +37,11 @@ public class ProdutoController {
 
 	@Autowired
 	private ProdutoService produtoService;
+	
+	@GetMapping(value = "lista")
+	public List<Produto> listaTodos() {
+		return produtoService.findAllList();
+	}
 
 	@GetMapping
 	public Page<Produto> pesquisar(@RequestParam int pagina, @RequestParam int max) {
