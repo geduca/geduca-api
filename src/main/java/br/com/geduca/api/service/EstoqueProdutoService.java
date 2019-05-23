@@ -51,6 +51,7 @@ public class EstoqueProdutoService {
 	}
 
 	public EstoqueProduto atualizar(Long codigo, EstoqueProduto estoqueProduto) {
+		estoqueProduto.setDataRegistro(LocalDate.now());
 		EstoqueProduto estoqueProdutoSalvo = buscarEstoqueProdutoPeloCodigo(codigo);
 		BeanUtils.copyProperties(estoqueProduto, estoqueProdutoSalvo, "codigo");
 		return estoqueProdutoRepository.save(estoqueProdutoSalvo);
