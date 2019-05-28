@@ -36,11 +36,11 @@ public class RegistroNutricional {
 	@ManyToOne
 	private Aluno aluno;
 
-	private Float peso;
+	private float peso;
 
-	private Float altura;
+	private float altura;
 
-	private Float imc;
+	private float imc;
 
 	private ResultadoIMCEnum resultado;
 

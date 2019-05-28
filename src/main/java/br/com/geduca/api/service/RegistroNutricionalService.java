@@ -95,9 +95,21 @@ public class RegistroNutricionalService {
 		return peso / (altura * altura);
 	}
 
-	public ResultadoIMCEnum resultadoImc(float imc, int idade, SexoEnum sexo) {
-		if (idade < 2 || idade > 18) {
-			return null;
+	public ResultadoIMCEnum resultadoImc(double imc, int idade, SexoEnum sexo) {
+		if (idade < 2) {
+			return ResultadoIMCEnum.INVALIDO;
+		}
+
+		if (idade >= 18) {
+			if (imc <= 18.5) {
+				return ResultadoIMCEnum.ABAIXO_DO_PESO;
+			} else if (imc <= 24.9) {
+				return ResultadoIMCEnum.PESO_NORMAL;
+			} else if (imc <= 29.9) {
+				return ResultadoIMCEnum.SOBRE_PESO;
+			} else if (imc > 30) {
+				return ResultadoIMCEnum.OBESIDADE;
+			}
 		}
 
 		IndiceIMC indice = imcRepository.findByIdadeSexo(idade, sexo);
@@ -111,8 +123,8 @@ public class RegistroNutricionalService {
 		} else if (imc > indice.getMaximo()) {
 			return ResultadoIMCEnum.OBESIDADE;
 		}
-		
-		return null;
+
+		return ResultadoIMCEnum.INVALIDO;
 	}
 
 }
