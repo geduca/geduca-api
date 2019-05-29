@@ -42,6 +42,8 @@ public class Fornecedor {
 	private Endereco endereco;
 
 	private String telefone;
+	
+	private String celular;
 
 	private String email;
 
