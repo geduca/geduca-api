@@ -33,19 +33,20 @@ public class EstoqueController {
 	@Autowired
 	private EstoqueService estoqueService;
 
-	@GetMapping
-	public Page<Estoque> lista(@RequestParam int pagina, @RequestParam int max) {
-		return estoqueService.lista(PageRequest.of(pagina, max));
-	}
-
 	@GetMapping(value = "todos")
 	public List<Estoque> listaTodos() {
 		return estoqueService.listaTodos();
 	}
 
+	@GetMapping
+	public Page<Estoque> lista(@RequestParam int pagina, @RequestParam int max) {
+		return estoqueService.lista(PageRequest.of(pagina, max));
+	}
+
 	@GetMapping(value = "dispensa")
-	public Page<Estoque> buscaPorDispensa(@RequestParam Long codigoDispensa) {
-		return estoqueService.getByDispensa(codigoDispensa);
+	public Page<Estoque> buscaPorDispensa(@RequestParam int pagina, @RequestParam int max,
+			@RequestParam Long codigoDispensa) {
+		return estoqueService.getByDispensa(PageRequest.of(pagina, max), codigoDispensa);
 	}
 
 	@PostMapping

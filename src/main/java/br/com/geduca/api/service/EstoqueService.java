@@ -63,10 +63,10 @@ public class EstoqueService {
 		return estoqueRepository.findAll();
 	}
 
-	public Page<Estoque> getByDispensa(Long codigoDespensa) {
+	public Page<Estoque> getByDispensa(Pageable pageable, Long codigoDespensa) {
 		Despensa despensa = despensaService.buscarDispensaPeloCodigo(codigoDespensa);
 		if (despensa != null) {
-			return estoqueRepository.findAllByDespensa(despensa);
+			return estoqueRepository.findAllByDespensa(pageable, despensa);
 		}
 		return null;
 	}
