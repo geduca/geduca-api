@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.com.geduca.api.model.Despensa;
@@ -52,12 +54,16 @@ public class EstoqueService {
 	public void deleteById(Long codigo) {
 		estoqueRepository.deleteById(codigo);
 	}
+	
+	public Page<Estoque> lista(Pageable pageable) {
+		return estoqueRepository.findAll(pageable);
+	}
 
 	public List<Estoque> listaTodos() {
 		return estoqueRepository.findAll();
 	}
 
-	public List<Estoque> getByDispensa(Long codigoDespensa) {
+	public Page<Estoque> getByDispensa(Long codigoDespensa) {
 		Despensa despensa = despensaService.buscarDispensaPeloCodigo(codigoDespensa);
 		if (despensa != null) {
 			return estoqueRepository.findAllByDespensa(despensa);

@@ -3,6 +3,8 @@ package br.com.geduca.api.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -31,19 +33,19 @@ public class EstoqueController {
 	@Autowired
 	private EstoqueService estoqueService;
 
+	@GetMapping
+	public Page<Estoque> lista(@RequestParam int pagina, @RequestParam int max) {
+		return estoqueService.lista(PageRequest.of(pagina, max));
+	}
+
 	@GetMapping(value = "todos")
 	public List<Estoque> listaTodos() {
 		return estoqueService.listaTodos();
 	}
 
 	@GetMapping(value = "dispensa")
-	public List<Estoque> buscaPorDispensa(@RequestParam Long codigoDispensa) {
+	public Page<Estoque> buscaPorDispensa(@RequestParam Long codigoDispensa) {
 		return estoqueService.getByDispensa(codigoDispensa);
-	}
-
-	@GetMapping(value = "produto")
-	public List<Estoque> buscaPorProduto(@RequestParam Long codigoProduto) {
-		return estoqueService.getByProduto(codigoProduto);
 	}
 
 	@PostMapping
