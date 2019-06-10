@@ -1,13 +1,8 @@
 package br.com.geduca.api.controller;
 
 import java.util.List;
-import java.util.Optional;
-
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,8 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.geduca.api.model.Estoque;
-import br.com.geduca.api.service.EstoqueService;
+import br.com.geduca.api.model.EstoqueProduto;
+import br.com.geduca.api.model.util.EstoqueProdutoUtil;
+import br.com.geduca.api.service.EstoqueProdutoService;
 
 /**
  * @author gustavoclay
@@ -31,48 +27,42 @@ import br.com.geduca.api.service.EstoqueService;
  */
 @RestController
 @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-@RequestMapping("/estoque")
-public class EstoqueController {
-
+@RequestMapping("/estoques_produtos")
+public class EstoqueProdutoController {
 	@Autowired
-	private EstoqueService estoqueService;
+	private EstoqueProdutoService estoqueProdutoService;
 
-	@GetMapping
-	public Page<Estoque> pesquisar(@RequestParam(required = false, defaultValue = "%") String nome,
-			@RequestParam int pagina, @RequestParam int max) {
-		return estoqueService.findByNomeContaining(nome, PageRequest.of(pagina, max));
+	@GetMapping(value = "todos")
+	public List<EstoqueProduto> listaTodos() {
+		return estoqueProdutoService.listaTodos();
 	}
 
-	@GetMapping(value = "lista")
-	public List<Estoque> listarTodos() {
-		return estoqueService.findAllList();
+	@GetMapping(value = "estoque")
+	public List<EstoqueProduto> buscaPorEstoque(@RequestParam Long codigoEstoque) {
+		return estoqueProdutoService.getByEstoque(codigoEstoque);
+	}
+
+	@GetMapping(value = "produto")
+	public List<EstoqueProduto> buscaPorProduto(@RequestParam Long codigoProduto) {
+		return estoqueProdutoService.getByProduto(codigoProduto);
 	}
 
 	@PostMapping
-	public ResponseEntity<Estoque> criar(@RequestBody Estoque estoque, HttpServletResponse response) {
-		Estoque estoqueSalvo = estoqueService.salvar(estoque);
-		return ResponseEntity.status(HttpStatus.CREATED).body(estoqueSalvo);
-	}
-
-	@GetMapping("/{codigo}")
-	public ResponseEntity<Optional<Estoque>> buscaPeloCodigo(@PathVariable Long codigo) {
-		Optional<Estoque> estoque = estoqueService.findById(codigo);
-		if (estoque != null)
-			return ResponseEntity.ok(estoque);
-		else
-			return ResponseEntity.noContent().build();
+	public ResponseEntity<Object> criar(@RequestParam Long codigoEstoque,
+			@RequestBody List<EstoqueProdutoUtil> produtos) {
+		return estoqueProdutoService.save(codigoEstoque, produtos);
 	}
 
 	@DeleteMapping("/{codigo}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void remover(@PathVariable Long codigo) {
-		estoqueService.deleteById(codigo);
+		estoqueProdutoService.deleteById(codigo);
 	}
-
+	
 	@PutMapping("/{codigo}")
-	public ResponseEntity<Estoque> atualizar(@PathVariable Long codigo, @RequestBody Estoque estoque) {
-		Estoque estoqueSalvo = estoqueService.atualizar(codigo, estoque);
-		return ResponseEntity.ok(estoqueSalvo);
+	public ResponseEntity<EstoqueProduto> atualizar(@PathVariable Long codigo,
+			@RequestBody EstoqueProduto estoqueProduto) {
+		EstoqueProduto estoqueProdutoSalvo = estoqueProdutoService.atualizar(codigo, estoqueProduto);
+		return ResponseEntity.ok(estoqueProdutoSalvo);
 	}
-
 }
