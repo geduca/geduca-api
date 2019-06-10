@@ -10,8 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import br.com.geduca.api.model.Estoque;
-import br.com.geduca.api.repository.EstoqueRepository;
+import br.com.geduca.api.model.Despensa;
+import br.com.geduca.api.repository.DespensaRepository;
 
 /**
  * 
@@ -19,42 +19,42 @@ import br.com.geduca.api.repository.EstoqueRepository;
  * 
  */
 @Service
-public class EstoqueService {
+public class DespensaService {
 
 	@Autowired
-	private EstoqueRepository estoqueRepository;
+	private DespensaRepository despensaRepository;
 
-	public Estoque salvar(Estoque estoque) {
-		return estoqueRepository.save(estoque);
+	public Despensa salvar(Despensa despensa) {
+		return despensaRepository.save(despensa);
 	}
 
-	public Estoque atualizar(Long codigo, Estoque estoque) {
-		Estoque estoqueSalvo = buscarEstoquePeloCodigo(codigo);
-		BeanUtils.copyProperties(estoque, estoqueSalvo, "codigo");
-		return estoqueRepository.save(estoqueSalvo);
+	public Despensa atualizar(Long codigo, Despensa despensa) {
+		Despensa despensaSalvo = buscarDispensaPeloCodigo(codigo);
+		BeanUtils.copyProperties(despensa, despensaSalvo, "codigo");
+		return despensaRepository.save(despensaSalvo);
 	}
 
-	public Estoque buscarEstoquePeloCodigo(Long codigo) {
-		Estoque estoqueSalvo = estoqueRepository.getOne(codigo);
-		if (estoqueSalvo == null) {
+	public Despensa buscarDispensaPeloCodigo(Long codigo) {
+		Despensa despensaSalvo = despensaRepository.getOne(codigo);
+		if (despensaSalvo == null) {
 			throw new EmptyResultDataAccessException(1);
 		}
-		return estoqueSalvo;
+		return despensaSalvo;
 	}
 
-	public Page<Estoque> findByNomeContaining(String nome, Pageable paginacao) {
-		return estoqueRepository.findByNomeContaining(nome, paginacao);
+	public Page<Despensa> findByNomeContaining(String nome, Pageable paginacao) {
+		return despensaRepository.findByNomeContaining(nome, paginacao);
 	}
 	
-	public List<Estoque> findAllList() {
-		return estoqueRepository.findAll();
+	public List<Despensa> findAllList() {
+		return despensaRepository.findAll();
 	}
 
-	public Optional<Estoque> findById(Long codigo) {
-		return estoqueRepository.findById(codigo);
+	public Optional<Despensa> findById(Long codigo) {
+		return despensaRepository.findById(codigo);
 	}
 
 	public void deleteById(Long codigo) {
-		estoqueRepository.deleteById(codigo);
+		despensaRepository.deleteById(codigo);
 	}
 }

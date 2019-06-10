@@ -10,12 +10,13 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import br.com.geduca.api.model.enums.TipoMovimentacaoEstoqueEnum;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Classe EstoqueProduto
+ * Classe Estoque
  * 
  * @author gustavoclay
  * 
@@ -25,27 +26,32 @@ import lombok.Setter;
 @Getter
 @EqualsAndHashCode
 @Entity
-@Table(name = "rl_estoque_produto")
-public class EstoqueProduto {
+@Table(name = "tb_estoque")
+public class Estoque {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_estoque_produto")
+	@Column(name = "id_estoque")
 	private Long codigo;
 
 	@ManyToOne
 	private Produto produto;
 
 	@ManyToOne
-	private Estoque estoque;
+	private Despensa despensa;
 
 	@ManyToOne
 	private Unidade unidade;
 
 	private Long quantidade;
 
-	@Column(name = "quantidade_minima")
 	private Long quantidadeMinima;
+
+	private String lote;
+
+	private TipoMovimentacaoEstoqueEnum tipo;
+
+	private LocalDate dataValidade;
 
 	private LocalDate dataRegistro;
 

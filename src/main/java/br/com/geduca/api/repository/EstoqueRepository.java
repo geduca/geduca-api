@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import br.com.geduca.api.model.Despensa;
 import br.com.geduca.api.model.Estoque;
-import br.com.geduca.api.model.EstoqueProduto;
 import br.com.geduca.api.model.Produto;
 
 /**
@@ -14,9 +14,9 @@ import br.com.geduca.api.model.Produto;
  *
  */
 @Repository
-public interface EstoqueProdutoRepository extends JpaRepository<EstoqueProduto, Long> {
+public interface EstoqueRepository extends JpaRepository<Estoque, Long> {
 
-	List<EstoqueProduto> findAllByEstoque(Estoque estoque);
+	List<Estoque> findAllByDespensa(Despensa despensa);
 
-	List<EstoqueProduto> findAllByProduto(Produto produto);
+	List<Estoque> findAllByProduto(Produto produto);
 }

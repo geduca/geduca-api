@@ -6,85 +6,69 @@ import java.util.List;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import br.com.geduca.api.model.Despensa;
 import br.com.geduca.api.model.Estoque;
-import br.com.geduca.api.model.EstoqueProduto;
 import br.com.geduca.api.model.Produto;
-import br.com.geduca.api.model.util.EstoqueProdutoUtil;
-import br.com.geduca.api.repository.EstoqueProdutoRepository;
+import br.com.geduca.api.repository.EstoqueRepository;
 
 /**
  * @author gustavoclay
  *
  */
 @Service
-public class EstoqueProdutoService {
+public class EstoqueService {
 
 	@Autowired
 	private ProdutoService produtoService;
 
 	@Autowired
-	private EstoqueService estoqueService;
+	private DespensaService despensaService;
 
 	@Autowired
-	private EstoqueProdutoRepository estoqueProdutoRepository;
+	private EstoqueRepository estoqueRepository;
 
-	public ResponseEntity<Object> save(Long codigoEstoque, List<EstoqueProdutoUtil> produtos) {
-		Estoque estoque = estoqueService.buscarEstoquePeloCodigo(codigoEstoque);
-		if (estoque != null) {
-			if (!produtos.isEmpty()) {
-				produtos.forEach(produto -> {
-					EstoqueProduto estoqueProduto = new EstoqueProduto();
-					estoqueProduto.setEstoque(estoque);
-					estoqueProduto.setProduto(produto.getProduto());
-					estoqueProduto.setQuantidade(produto.getQuantidade());
-					estoqueProduto.setQuantidadeMinima(produto.getQuantidadeMinima());
-					estoqueProduto.setDataRegistro(LocalDate.now());
-					estoqueProdutoRepository.save(estoqueProduto);
-				});
-				return ResponseEntity.ok().build();
-			}
-		}
-		return ResponseEntity.badRequest().build();
+	public Estoque save(Estoque estoque) {
+		estoque.setDataRegistro(LocalDate.now());
+		return estoqueRepository.save(estoque);
 	}
 
-	public EstoqueProduto atualizar(Long codigo, EstoqueProduto estoqueProduto) {
-		estoqueProduto.setDataRegistro(LocalDate.now());
-		EstoqueProduto estoqueProdutoSalvo = buscarEstoqueProdutoPeloCodigo(codigo);
-		BeanUtils.copyProperties(estoqueProduto, estoqueProdutoSalvo, "codigo");
-		return estoqueProdutoRepository.save(estoqueProdutoSalvo);
+	public Estoque atualizar(Long codigo, Estoque estoque) {
+		estoque.setDataRegistro(LocalDate.now());
+		Estoque estoqueSalvo = buscarEstoquePeloCodigo(codigo);
+		BeanUtils.copyProperties(estoque, estoqueSalvo, "codigo");
+		return estoqueRepository.save(estoqueSalvo);
 	}
 
-	public EstoqueProduto buscarEstoqueProdutoPeloCodigo(Long codigo) {
-		EstoqueProduto estoqueProduto = estoqueProdutoRepository.getOne(codigo);
-		if (estoqueProduto == null) {
+	public Estoque buscarEstoquePeloCodigo(Long codigo) {
+		Estoque estoque = estoqueRepository.getOne(codigo);
+		if (estoque == null) {
 			throw new EmptyResultDataAccessException(1);
 		}
-		return estoqueProduto;
+		return estoque;
 	}
 
 	public void deleteById(Long codigo) {
-		estoqueProdutoRepository.deleteById(codigo);
+		estoqueRepository.deleteById(codigo);
 	}
 
-	public List<EstoqueProduto> listaTodos() {
-		return estoqueProdutoRepository.findAll();
+	public List<Estoque> listaTodos() {
+		return estoqueRepository.findAll();
 	}
 
-	public List<EstoqueProduto> getByEstoque(Long codigoEstoque) {
-		Estoque estoque = estoqueService.buscarEstoquePeloCodigo(codigoEstoque);
-		if (estoque != null) {
-			return estoqueProdutoRepository.findAllByEstoque(estoque);
+	public List<Estoque> getByDispensa(Long codigoDespensa) {
+		Despensa despensa = despensaService.buscarDispensaPeloCodigo(codigoDespensa);
+		if (despensa != null) {
+			return estoqueRepository.findAllByDespensa(despensa);
 		}
 		return null;
 	}
 
-	public List<EstoqueProduto> getByProduto(Long codigoProduto) {
+	public List<Estoque> getByProduto(Long codigoProduto) {
 		Produto produto = produtoService.buscaProdutoPeloCodigo(codigoProduto);
 		if (produto != null) {
-			return estoqueProdutoRepository.findAllByProduto(produto);
+			return estoqueRepository.findAllByProduto(produto);
 		}
 		return null;
 	}
