@@ -1,22 +1,15 @@
 package br.com.geduca.api.service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import br.com.geduca.api.model.Aluno;
-import br.com.geduca.api.model.FichaSaude;
-import br.com.geduca.api.model.Fornecedor;
-import br.com.geduca.api.model.Pessoa;
 import br.com.geduca.api.model.Produto;
-import br.com.geduca.api.repository.FornecedorRepository;
 import br.com.geduca.api.repository.ProdutoRepository;
 
 /**

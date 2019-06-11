@@ -36,6 +36,8 @@ public class Produto {
 	private String descricao;
 
 	private String marca;
+	
+	private Long quantidadeMinima;
 
 	@ManyToOne
 	private Fornecedor fornecedor;

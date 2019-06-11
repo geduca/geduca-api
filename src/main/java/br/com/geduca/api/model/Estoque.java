@@ -45,8 +45,6 @@ public class Estoque {
 
 	private Long quantidade;
 
-	private Long quantidadeMinima;
-
 	private String lote;
 
 	private TipoMovimentacaoEstoqueEnum tipo;
