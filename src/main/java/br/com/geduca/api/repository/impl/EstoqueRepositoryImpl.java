@@ -1,4 +1,4 @@
-package br.com.geduca.api.repository;
+package br.com.geduca.api.repository.impl;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -8,7 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
-import br.com.geduca.api.model.Estoque;
+import br.com.geduca.api.model.dao.EstoqueDAO;
 import br.com.geduca.api.repository.custom.EstoqueRepositoryCustom;
 
 public class EstoqueRepositoryImpl implements EstoqueRepositoryCustom {
@@ -17,21 +17,25 @@ public class EstoqueRepositoryImpl implements EstoqueRepositoryCustom {
 	private EntityManager entityManager;
 
 	@Override
-	public Page<Estoque> listarEstoquePorDespensa(Pageable paginacao) {
-		String hql = " select %s from Exame exame %s where exame.situacaoExame = :situacao "
-				+ " and exame.procedimento in (select ep.procedimento from EspecialidadeProcedimento ep where ep.especialidade in :especialidades) ";
+	public Page<EstoqueDAO> listarEstoquePorDespensa(Long codigoDespensa, Pageable paginacao) {
+		String hql = " SELECT e.produto, e.lote, e.dataValidade, SUM(e.quantidade) AS total FROM Estoque e "
+				+ " %s WHERE e.despensa.codigo = :codigoDespensa %s ";
 
-		String groupBy = " order by exame.prioridade, exame.dataPedido, exame.sla ";
+		String joins = " JOIN e.produto po JOIN e.despensa de ";
 
-		Query query = entityManager.createQuery(String.format(hql, "(exame)", "", ""));
-		Long total = (Long) query.getSingleResult();
+		String groupBy = " GROUP BY e.produto, po, e.lote, e.dataValidade ";
+
+		Query query = entityManager.createQuery(String.format(hql, joins, groupBy));
+		query.setParameter("codigoDespensa", codigoDespensa);
+
+		int total = query.getResultList().size();
 
 		if (total > 0) {
-			query = entityManager.createQuery(String.format(hql, "exame", groupBy));
-
 			query.setMaxResults(paginacao.getPageSize() > 0 ? paginacao.getPageSize() : 10);
 			query.setFirstResult(paginacao.getPageNumber() * paginacao.getPageSize());
-			Page<Estoque> resultado = new PageImpl<Estoque>(query.getResultList(), paginacao, total);
+
+			Page<EstoqueDAO> resultado = new PageImpl<EstoqueDAO>(query.getResultList(), paginacao, total);
+
 			return resultado;
 		}
 		return Page.empty(paginacao);

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import br.com.geduca.api.model.Despensa;
 import br.com.geduca.api.model.Estoque;
 import br.com.geduca.api.model.Produto;
+import br.com.geduca.api.model.dao.EstoqueDAO;
 import br.com.geduca.api.repository.EstoqueRepository;
 
 /**
@@ -77,6 +78,10 @@ public class EstoqueService {
 			return estoqueRepository.findAllByProduto(produto);
 		}
 		return null;
+	}
+	
+	public Page<EstoqueDAO> listaPorDespensa(Long codigoDespensa, Pageable paginacao) {
+		return estoqueRepository.listarEstoquePorDespensa(codigoDespensa, paginacao);
 	}
 
 }

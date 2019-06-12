@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.geduca.api.model.Estoque;
+import br.com.geduca.api.model.dao.EstoqueDAO;
 import br.com.geduca.api.service.EstoqueService;
 
 /**
@@ -42,11 +43,10 @@ public class EstoqueController {
 	public Page<Estoque> lista(@RequestParam int pagina, @RequestParam int max) {
 		return estoqueService.lista(PageRequest.of(pagina, max));
 	}
-
-	@GetMapping(value = "dispensa")
-	public Page<Estoque> buscaPorDispensa(@RequestParam int pagina, @RequestParam int max,
-			@RequestParam Long codigoDispensa) {
-		return estoqueService.getByDispensa(PageRequest.of(pagina, max), codigoDispensa);
+	
+	@GetMapping(value = "despensa")
+	public Page<EstoqueDAO> buscaPorDespensa(@RequestParam int pagina, @RequestParam int max, @RequestParam Long codigoDespensa) {
+		return estoqueService.listaPorDespensa(codigoDespensa, PageRequest.of(pagina, max));
 	}
 
 	@PostMapping
