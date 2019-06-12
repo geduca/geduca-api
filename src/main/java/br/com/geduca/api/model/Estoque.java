@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import br.com.geduca.api.model.enums.TipoMovimentacaoEstoqueEnum;
 import lombok.EqualsAndHashCode;
@@ -40,9 +41,6 @@ public class Estoque {
 	@ManyToOne
 	private Despensa despensa;
 
-	@ManyToOne
-	private Unidade unidade;
-
 	private Long quantidade;
 
 	private String lote;
@@ -52,5 +50,9 @@ public class Estoque {
 	private LocalDate dataValidade;
 
 	private LocalDate dataRegistro;
+	
+	@Transient
+	private Long total;
+	
 
 }

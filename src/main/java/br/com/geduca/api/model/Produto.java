@@ -38,6 +38,9 @@ public class Produto {
 	private String marca;
 	
 	private Long quantidadeMinima;
+	
+	@ManyToOne
+	private Unidade unidade;
 
 	@ManyToOne
 	private Fornecedor fornecedor;
