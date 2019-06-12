@@ -1,9 +1,6 @@
 package br.com.geduca.api.controller;
 
 import java.util.List;
-import java.util.Optional;
-
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.geduca.api.model.Estoque;
+import br.com.geduca.api.model.dao.EstoqueDAO;
 import br.com.geduca.api.service.EstoqueService;
 
 /**
@@ -33,46 +31,39 @@ import br.com.geduca.api.service.EstoqueService;
 @PreAuthorize("hasAuthority('ROLE_ADMIN')")
 @RequestMapping("/estoque")
 public class EstoqueController {
-
 	@Autowired
 	private EstoqueService estoqueService;
 
-	@GetMapping
-	public Page<Estoque> pesquisar(@RequestParam(required = false, defaultValue = "%") String nome,
-			@RequestParam int pagina, @RequestParam int max) {
-		return estoqueService.findByNomeContaining(nome, PageRequest.of(pagina, max));
+	@GetMapping(value = "todos")
+	public List<Estoque> listaTodos() {
+		return estoqueService.listaTodos();
 	}
 
-	@GetMapping(value = "lista")
-	public List<Estoque> listarTodos() {
-		return estoqueService.findAllList();
+	@GetMapping
+	public Page<Estoque> lista(@RequestParam int pagina, @RequestParam int max) {
+		return estoqueService.lista(PageRequest.of(pagina, max));
+	}
+	
+	@GetMapping(value = "despensa")
+	public Page<EstoqueDAO> buscaPorDespensa(@RequestParam int pagina, @RequestParam int max, @RequestParam Long codigoDespensa) {
+		return estoqueService.listaPorDespensa(codigoDespensa, PageRequest.of(pagina, max));
 	}
 
 	@PostMapping
-	public ResponseEntity<Estoque> criar(@RequestBody Estoque estoque, HttpServletResponse response) {
-		Estoque estoqueSalvo = estoqueService.salvar(estoque);
-		return ResponseEntity.status(HttpStatus.CREATED).body(estoqueSalvo);
-	}
-
-	@GetMapping("/{codigo}")
-	public ResponseEntity<Optional<Estoque>> buscaPeloCodigo(@PathVariable Long codigo) {
-		Optional<Estoque> estoque = estoqueService.findById(codigo);
-		if (estoque != null)
-			return ResponseEntity.ok(estoque);
-		else
-			return ResponseEntity.noContent().build();
-	}
-
-	@DeleteMapping("/{codigo}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void remover(@PathVariable Long codigo) {
-		estoqueService.deleteById(codigo);
+	public Estoque criar(@RequestBody Estoque estoque) {
+		return estoqueService.save(estoque);
 	}
 
 	@PutMapping("/{codigo}")
 	public ResponseEntity<Estoque> atualizar(@PathVariable Long codigo, @RequestBody Estoque estoque) {
 		Estoque estoqueSalvo = estoqueService.atualizar(codigo, estoque);
 		return ResponseEntity.ok(estoqueSalvo);
+	}
+
+	@DeleteMapping("/{codigo}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void remover(@PathVariable Long codigo) {
+		estoqueService.deleteById(codigo);
 	}
 
 }

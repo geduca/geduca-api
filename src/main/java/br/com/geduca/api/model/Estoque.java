@@ -1,12 +1,16 @@
 package br.com.geduca.api.model;
 
+import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import br.com.geduca.api.model.enums.TipoMovimentacaoEstoqueEnum;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,8 +34,20 @@ public class Estoque {
 	@Column(name = "id_estoque")
 	private Long codigo;
 
-	private String nome;
+	@ManyToOne
+	private Produto produto;
 
-	private String descricao;
+	@ManyToOne
+	private Despensa despensa;
+
+	private Long quantidade;
+
+	private String lote;
+
+	private TipoMovimentacaoEstoqueEnum tipo;
+
+	private LocalDate dataValidade;
+
+	private LocalDate dataRegistro;
 
 }

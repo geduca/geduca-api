@@ -47,7 +47,7 @@ public class Fornecedor {
 
 	private String email;
 
-	private String reponsavel;
+	private String responsavel;
 
 	@Column(name = "dt_matricula")
 	private LocalDate dataMatricula;

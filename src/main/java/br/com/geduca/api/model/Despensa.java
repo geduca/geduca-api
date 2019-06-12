@@ -1,23 +1,18 @@
 package br.com.geduca.api.model;
 
-import java.time.LocalDate;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import br.com.geduca.api.model.enums.TipoMovimentacaoEstoqueEnum;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Classe MovimentacaoEstoque
+ * Classe Despensa
  * 
  * @author gustavoclay
  * 
@@ -27,20 +22,16 @@ import lombok.Setter;
 @Getter
 @EqualsAndHashCode
 @Entity
-@Table(name = "tb_movimentacao_estoque")
-public class MovimentacaoEstoque {
+@Table(name = "tb_despensa")
+public class Despensa {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_movimentacao_estoque")
+	@Column(name = "id_despensa")
 	private Long codigo;
 
-	@OneToOne
-	private EstoqueProduto produtoEstoque;
+	private String nome;
 
-	@Enumerated
-	private TipoMovimentacaoEstoqueEnum tipo;
-
-	private LocalDate dataRegistro;
+	private String descricao;
 
 }

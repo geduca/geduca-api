@@ -1,15 +1,14 @@
-package br.com.geduca.api.model.util;
+package br.com.geduca.api.model.dao;
 
 import java.time.LocalDate;
 
 import br.com.geduca.api.model.Produto;
-import br.com.geduca.api.model.Unidade;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Classe EstoqueProduto
+ * Classe Estoque
  * 
  * @author gustavoclay
  * 
@@ -18,16 +17,14 @@ import lombok.Setter;
 @Setter
 @Getter
 @EqualsAndHashCode
-public class EstoqueProdutoUtil {
+public class EstoqueDAO {
 
 	private Produto produto;
 
-	private Unidade unidade;
+	private String lote;
 
-	private Long quantidade;
+	private LocalDate dataValidade;
 
-	private Long quantidadeMinima;
-
-	private LocalDate dataRegistro;
+	private Long total;
 
 }
