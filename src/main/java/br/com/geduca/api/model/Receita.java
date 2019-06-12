@@ -1,15 +1,11 @@
 package br.com.geduca.api.model;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import br.com.geduca.api.model.enums.TipoReceitaEnum;
@@ -40,13 +36,13 @@ public class Receita {
 
 	private String descricao;
 
-	@Column(name = "modo_preparo")
+	@Column(length = 1000)
+	private String ingredientes;
+
+	@Column(name = "modo_preparo", length = 1000)
 	private String modoPreparo;
 
 	@Enumerated
 	private TipoReceitaEnum tipoReceita;
 
-	@ManyToMany
-	@JoinTable(name = "rl_receita_restricao_alimentar")
-	private List<RestricaoAlimentar> restricaoAliementar;
 }
