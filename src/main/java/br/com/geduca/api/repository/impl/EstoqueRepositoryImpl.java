@@ -11,6 +11,11 @@ import org.springframework.data.domain.Pageable;
 import br.com.geduca.api.model.dao.EstoqueDAO;
 import br.com.geduca.api.repository.custom.EstoqueRepositoryCustom;
 
+/**
+ * 
+ * @author gustavoclay
+ * 
+ */
 public class EstoqueRepositoryImpl implements EstoqueRepositoryCustom {
 
 	@PersistenceContext

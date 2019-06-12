@@ -6,6 +6,11 @@ import org.springframework.stereotype.Repository;
 
 import br.com.geduca.api.model.dao.EstoqueDAO;
 
+/**
+ * 
+ * @author gustavoclay
+ * 
+ */
 @Repository
 public interface EstoqueRepositoryCustom {
 
